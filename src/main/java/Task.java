@@ -13,6 +13,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return (isDone ? "[✗] " : "[ ] ") + name; // Returns the task status and name
+        return (isDone ? "[X] " : "[ ] ") + name; // Returns the task status and name
     }
 }

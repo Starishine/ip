@@ -3,11 +3,10 @@ import java.util.Scanner;
 public class Leo {
     public static void main(String[] args) {
         // greets the user
-        printLogo();
         printLine();
         TaskManager taskManager = new TaskManager();
 
-        System.out.println("Hello, \uD83C\uDF1F I'm Leo, your favorite chatbot!");
+        System.out.println("Hello, 🌟 I'm Leo, your favorite chatbot!");
         System.out.println("What can I do for you today?");
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
@@ -30,7 +29,7 @@ public class Leo {
             }
             input = scanner.nextLine();
         }
-        System.out.println("Bye \uD83D\uDC4B ! Hope to see you soon!");
+        System.out.println("Bye 👋 ! Hope to see you soon!");
         scanner.close();
     }
 
@@ -39,13 +38,4 @@ public class Leo {
         System.out.println("___________________________________________");
     }
 
-    public static void printLogo(){
-        System.out.println("██╗     ███████╗ ██████╗ ");
-        System.out.println("██║     ██╔════╝██╔═══██╗");
-        System.out.println("██║     █████╗  ██║   ██║");
-        System.out.println("██║     ██╔══╝  ██║   ██║");
-        System.out.println("███████╗███████╗╚██████╔╝");
-        System.out.println("╚══════╝╚══════╝ ╚═════╝ ");
-        System.out.println();
-    }
 }

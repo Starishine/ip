@@ -19,3 +19,10 @@ java -classpath ..\bin Leo < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT
+
+REM Check if FC found any differences
+IF %ERRORLEVEL% EQU 0 (
+    echo Test result: PASSED
+) ELSE (
+    echo Test result: FAILED
+)
