@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Leo {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws LeoException {
         // greets the user
         printLine();
         TaskManager taskManager = new TaskManager();
@@ -14,16 +14,24 @@ public class Leo {
         while (!input.equals("bye")){
             String[] words = input.split(" ");
             if (words[0].equals("mark")){
-                taskManager.markTask(words);
+                try {
+                    taskManager.markTask(words);
+                } catch (LeoException e) {
+                    System.out.println(e.getMessage());
+                }
             } else if (words[0].equals("unmark")){
-                taskManager.unmarkTask(words);
+                try {
+                    taskManager.unmarkTask(words);
+                } catch (LeoException e) {
+                    System.out.println(e.getMessage());
+                }
             } else if (input.equals("list")){
                 taskManager.printList();
             } else {
                 try {
                     Task task = taskManager.createTask(input);
                     taskManager.addTask(task);
-                } catch (IllegalArgumentException e) {
+                } catch (LeoException e) {
                     System.out.println(e.getMessage());
                 }
             }

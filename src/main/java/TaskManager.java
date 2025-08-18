@@ -11,24 +11,41 @@ public class TaskManager {
      * @param input The input string containing the task details.
      * @return A Task object of type ToDo, Deadline, or Event.
      */
-    public Task createTask(String input){
+    public Task createTask(String input) throws LeoException {
         String[] words = input.trim().split("\\s+");
         if (words[0].equals("todo")) {
             String description = String.join(" ", java.util.Arrays.copyOfRange(words, 1, words.length));
+            if (description.isEmpty()) {
+                throw new LeoException("UH-OH!!!! Cannot create task: Description cannot be empty for 'todo'.");
+            }
             return new ToDo(description);
         } else if (words[0].equals("deadline")) {
             String[] parts = input.split(" /by ", 2);
             String description = parts[0].replaceFirst("deadline ", "").trim();
+            if (description.isEmpty()) {
+                throw new LeoException("UH-OH!!!! Cannot create task: Description cannot be empty for 'deadline'.");
+            }
             String dueDate = parts.length > 1 ? parts[1].trim() : "";
+            if (dueDate.isEmpty()) {
+                throw new LeoException("UH-OH!!!! Cannot create task: Due date cannot be empty for 'deadline'.");
+            }
             return new Deadline(description, dueDate);
         } else if (words[0].equals("event")) {
             String[] parts = input.split(" /from | /to ", 3);
             String description = parts[0].replaceFirst("event ", "").trim();
+            if (description.isEmpty()) {
+                throw new LeoException("UH-OH!!!! Cannot create task: Description cannot be empty for 'event'.");
+            }
             String startDate = parts.length > 1 ? parts[1].trim() : "";
             String endDate = parts.length > 2 ? parts[2].trim() : "";
+            if (startDate.isEmpty() || endDate.isEmpty()) {
+                throw new LeoException("UH-OH!!!! Cannot create task: Start date and end date cannot be empty " +
+                        "for 'event'.");
+            }
             return new Event(description, startDate, endDate);
         } else {
-            throw new IllegalArgumentException("Cannot create task: Unknown command. Please use 'todo', 'deadline', or 'event'.");
+            throw new LeoException("UH-OH!!! Cannot create task: Unknown command. " +
+                    "Please use 'todo', 'deadline','event'.");
         }
     }
 
@@ -47,7 +64,7 @@ public class TaskManager {
      * Marks a task as not done based on the input command.
      * @param words The input command split into words.
      */
-    public void unmarkTask(String[] words) {
+    public void unmarkTask(String[] words) throws LeoException {
         if (words.length > 1) {
             int index = Integer.parseInt(words[1]) - 1;
             if (index >= 0 && index < todoList.size()) {
@@ -55,7 +72,7 @@ public class TaskManager {
                 task.setDone(false);
                 System.out.println("Marked as not done: " + task);
             } else {
-                System.out.println("Invalid task number.");
+                throw new LeoException("UH-OH!!! Invalid task number.");
             }
         }
     }
@@ -64,7 +81,7 @@ public class TaskManager {
      * Marks a task as done based on the input command.
      * @param words The input command split into words.
      */
-    public void markTask(String[] words) {
+    public void markTask(String[] words) throws LeoException {
         if (words.length > 1) {
             int index = Integer.parseInt(words[1]) - 1;
             if (index >= 0 && index < todoList.size()) {
@@ -72,7 +89,7 @@ public class TaskManager {
                 task.setDone(true);
                 System.out.println("Marked as done: " + task);
             } else {
-                System.out.println("Invalid task number.");
+                throw new LeoException("UH-OH!!! Invalid task number.");
             }
         }
     }
