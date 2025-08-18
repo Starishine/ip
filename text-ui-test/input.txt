@@ -1,8 +1,15 @@
 todo read book
+todo
 deadline submit assignment /by Sunday
+mark 3
+deadline finish project
 event project meeting /from Mon 2pm /to 4pm
+event
 list
+event project meeting /from Mon 2pm
 deadline do homework /by no idea :-p
+deadline
 mark 2
 unmark 2
+unknown command
 bye

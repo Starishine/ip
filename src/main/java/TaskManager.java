@@ -21,7 +21,7 @@ public class TaskManager {
             return new ToDo(description);
         } else if (words[0].equals("deadline")) {
             String[] parts = input.split(" /by ", 2);
-            String description = parts[0].replaceFirst("deadline ", "").trim();
+            String description = parts[0].replaceFirst("deadline", "").trim();
             if (description.isEmpty()) {
                 throw new LeoException("UH-OH!!!! Cannot create task: Description cannot be empty for 'deadline'.");
             }
@@ -32,7 +32,7 @@ public class TaskManager {
             return new Deadline(description, dueDate);
         } else if (words[0].equals("event")) {
             String[] parts = input.split(" /from | /to ", 3);
-            String description = parts[0].replaceFirst("event ", "").trim();
+            String description = parts[0].replaceFirst("event", "").trim();
             if (description.isEmpty()) {
                 throw new LeoException("UH-OH!!!! Cannot create task: Description cannot be empty for 'event'.");
             }

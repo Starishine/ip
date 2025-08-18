@@ -3,16 +3,23 @@ Hello, 🌟 I'm Leo, your favorite chatbot!
 What can I do for you today?
 Got it! I've added this task: [T] [ ] read book
 Now you have 1 tasks in the list.
+UH-OH!!!! Cannot create task: Description cannot be empty for 'todo'.
 Got it! I've added this task: [D] [ ] submit assignment (by: Sunday)
 Now you have 2 tasks in the list.
+UH-OH!!! Invalid task number.
+UH-OH!!!! Cannot create task: Due date cannot be empty for 'deadline'.
 Got it! I've added this task: [E] [ ] project meeting (from: Mon 2pm to: 4pm)
 Now you have 3 tasks in the list.
+UH-OH!!!! Cannot create task: Description cannot be empty for 'event'.
 Here is your todo list:
 1. [T] [ ] read book
 2. [D] [ ] submit assignment (by: Sunday)
 3. [E] [ ] project meeting (from: Mon 2pm to: 4pm)
+UH-OH!!!! Cannot create task: Start date and end date cannot be empty for 'event'.
 Got it! I've added this task: [D] [ ] do homework (by: no idea :-p)
 Now you have 4 tasks in the list.
+UH-OH!!!! Cannot create task: Description cannot be empty for 'deadline'.
 Marked as done: [D] [X] submit assignment (by: Sunday)
 Marked as not done: [D] [ ] submit assignment (by: Sunday)
+UH-OH!!! Cannot create task: Unknown command. Please use 'todo', 'deadline','event'.
 Bye 👋 ! Hope to see you soon!
