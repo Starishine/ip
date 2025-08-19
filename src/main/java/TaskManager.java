@@ -94,6 +94,10 @@ public class TaskManager {
         }
     }
 
+/**
+     * Deletes a task from the todo list based on the input command.
+     * @param words The input command split into words.
+     */
     public void deleteTask(String[] words) throws LeoException {
         if (words.length > 1) {
             int index = Integer.parseInt(words[1]) - 1;

@@ -13,34 +13,36 @@ public class Leo {
         // echoes user input until "bye" is entered
         while (!input.equals("bye")){
             String[] words = input.split(" ");
-            if (words[0].equals("mark")){
-                try {
-                    taskManager.markTask(words);
-                } catch (LeoException e) {
-                    System.out.println(e.getMessage());
+            CommandType command = CommandType.fromString(words[0]);
+            try {
+                switch (command) {
+                    case MARK:
+                        taskManager.markTask(words);
+                        break;
+                    case UNMARK:
+                        taskManager.unmarkTask(words);
+                        break;
+                    case LIST:
+                        taskManager.printList();
+                        break;
+                    case DELETE:
+                        taskManager.deleteTask(words);
+                        break;
+                    case TODO:
+                    case DEADLINE:
+                    case EVENT:
+                        Task task = taskManager.createTask(input);
+                        taskManager.addTask(task);
+                        break;
+                    default:
+                        throw new LeoException("UH-OH!!! Cannot understand your command. " +
+                                "Please use 'todo', 'deadline', 'event', 'mark', 'unmark', 'list', or 'delete'.");
+
                 }
-            } else if (words[0].equals("unmark")){
-                try {
-                    taskManager.unmarkTask(words);
-                } catch (LeoException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else if (input.equals("list")){
-                taskManager.printList();
-            } else if (words[0].equals("delete")){
-                try {
-                    taskManager.deleteTask(words);
-                } catch (LeoException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else {
-                try {
-                    Task task = taskManager.createTask(input);
-                    taskManager.addTask(task);
-                } catch (LeoException e) {
-                    System.out.println(e.getMessage());
-                }
+            } catch (LeoException e) {
+                System.out.println(e.getMessage());
             }
+
             input = scanner.nextLine();
         }
         System.out.println("Bye 👋 ! Hope to see you soon!");
