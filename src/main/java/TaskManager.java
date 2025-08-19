@@ -94,6 +94,19 @@ public class TaskManager {
         }
     }
 
+    public void deleteTask(String[] words) throws LeoException {
+        if (words.length > 1) {
+            int index = Integer.parseInt(words[1]) - 1;
+            if (index >= 0 && index < todoList.size()) {
+                Task taskRemoved = todoList.remove(index);
+                System.out.println("Removed Task: " + taskRemoved);
+                System.out.println("Now you have " + todoList.size() + " tasks in the list.");
+            } else {
+                throw new LeoException("UH-OH!!! Invalid task number.");
+            }
+        }
+    }
+
     /**
      * Prints the current todo list.
      */

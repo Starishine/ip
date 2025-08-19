@@ -21,5 +21,7 @@ Now you have 4 tasks in the list.
 UH-OH!!!! Cannot create task: Description cannot be empty for 'deadline'.
 Marked as done: [D] [X] submit assignment (by: Sunday)
 Marked as not done: [D] [ ] submit assignment (by: Sunday)
+Removed Task: [T] [ ] read book
+Now you have 3 tasks in the list.
 UH-OH!!! Cannot create task: Unknown command. Please use 'todo', 'deadline','event'.
 Bye 👋 ! Hope to see you soon!

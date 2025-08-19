@@ -27,6 +27,12 @@ public class Leo {
                 }
             } else if (input.equals("list")){
                 taskManager.printList();
+            } else if (words[0].equals("delete")){
+                try {
+                    taskManager.deleteTask(words);
+                } catch (LeoException e) {
+                    System.out.println(e.getMessage());
+                }
             } else {
                 try {
                     Task task = taskManager.createTask(input);
