@@ -1,3 +1,7 @@
+package chatbot.inputreader;
+
+import chatbot.taskhandler.Task;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 

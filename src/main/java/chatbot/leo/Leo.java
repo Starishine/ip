@@ -1,4 +1,12 @@
+package chatbot.leo;
+
 import java.util.Scanner;
+
+import chatbot.exceptions.LeoException;
+import chatbot.inputreader.CommandType;
+import chatbot.taskhandler.Task;
+import chatbot.taskhandler.TaskManager;
+
 
 public class Leo {
     public static void main(String[] args) throws LeoException {

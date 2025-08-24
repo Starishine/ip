@@ -1,3 +1,7 @@
+package chatbot.inputreader;
+/**
+ * Enum representing the different types of commands that can be processed.
+ */
 public enum CommandType {
     BYE,
     MARK,
