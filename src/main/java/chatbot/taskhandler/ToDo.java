@@ -1,7 +1,13 @@
+package chatbot.taskhandler;
+
 public class ToDo extends Task {
 
     public ToDo(String name) {
         super(name);
+    }
+
+    public String formatData() {
+        return "T | " + super.formatData(); // Formats the ToDo data for file writing
     }
 
     @Override

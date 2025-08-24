@@ -1,3 +1,9 @@
+package chatbot.taskhandler;
+
+import chatbot.exceptions.LeoException;
+import chatbot.inputreader.FileWriting;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +16,7 @@ public class TaskManager {
      *
      * @param input The input string containing the task details.
      * @return A Task object of type ToDo, Deadline, or Event.
+     * @throws LeoException If the input format is incorrect or if required details are missing.
      */
     public Task createTask(String input) throws LeoException {
         String[] words = input.trim().split("\\s+");
@@ -50,12 +57,67 @@ public class TaskManager {
     }
 
     /**
+     * Loads tasks from a file and populates the todoList.
+     *
+     * @param filePath The path to the file containing the tasks.
+     */
+    public void loadDataFromFile(String filePath) {
+        try {
+            List<String> lines = FileWriting.readFromFile(filePath);
+            for (String line : lines) {
+                String[] parts = line.split(" \\| ");
+                String taskType = parts[0];
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+
+                Task task;
+                switch (taskType) {
+                case "T":
+                    task = new ToDo(description);
+                    break;
+                case "D":
+                    String dueDate = parts[3];
+                    task = new Deadline(description, dueDate);
+                    break;
+                case "E":
+                    String startDate = parts[3];
+                    String endDate = parts[4];
+                    task = new Event(description, startDate, endDate);
+                    break;
+                default:
+                    System.out.println("Unknown task type in file: " + taskType);
+                    continue; // Skip unknown task types
+                }
+                task.setDone(isDone);
+                todoList.add(task);
+            }
+        } catch (IOException e) {
+            System.out.println("Something went wrong while loading data: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Saves the current list of tasks to a file.
+     *
+     * @param tasks    The list of tasks to be saved.
+     * @param filePath The path to the file where tasks will be saved.
+     */
+    public void saveTasksToFile(List<Task> tasks, String filePath) {
+        try {
+            FileWriting.writeToFile(filePath, tasks);
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    /**
      * Adds a new task to the todo list.
      *
      * @param task The task to be added.
      */
     public void addTask(Task task) {
         todoList.add(task); // Adds a new task to the list
+        saveTasksToFile(todoList, "data/leo.txt");
         System.out.println("Got it! I've added this task: " + task);
         System.out.println("Now you have " + todoList.size() + " tasks in the list.");
     }
@@ -63,6 +125,7 @@ public class TaskManager {
     /**
      * Marks a task as not done based on the input command.
      * @param words The input command split into words.
+     * @throws LeoException If the task number is invalid.
      */
     public void unmarkTask(String[] words) throws LeoException {
         if (words.length > 1) {
@@ -70,6 +133,7 @@ public class TaskManager {
             if (index >= 0 && index < todoList.size()) {
                 Task task = todoList.get(index);
                 task.setDone(false);
+                saveTasksToFile(todoList, "data/leo.txt");
                 System.out.println("Marked as not done: " + task);
             } else {
                 throw new LeoException("UH-OH!!! Invalid task number.");
@@ -80,6 +144,7 @@ public class TaskManager {
     /**
      * Marks a task as done based on the input command.
      * @param words The input command split into words.
+     * @throws LeoException If the task number is invalid.
      */
     public void markTask(String[] words) throws LeoException {
         if (words.length > 1) {
@@ -87,6 +152,7 @@ public class TaskManager {
             if (index >= 0 && index < todoList.size()) {
                 Task task = todoList.get(index);
                 task.setDone(true);
+                saveTasksToFile(todoList, "data/leo.txt");
                 System.out.println("Marked as done: " + task);
             } else {
                 throw new LeoException("UH-OH!!! Invalid task number.");
@@ -94,15 +160,17 @@ public class TaskManager {
         }
     }
 
-/**
+    /**
      * Deletes a task from the todo list based on the input command.
      * @param words The input command split into words.
+     * @throws LeoException If the task number is invalid.
      */
     public void deleteTask(String[] words) throws LeoException {
         if (words.length > 1) {
             int index = Integer.parseInt(words[1]) - 1;
             if (index >= 0 && index < todoList.size()) {
                 Task taskRemoved = todoList.remove(index);
+                saveTasksToFile(todoList, "data/leo.txt");
                 System.out.println("Removed Task: " + taskRemoved);
                 System.out.println("Now you have " + todoList.size() + " tasks in the list.");
             } else {

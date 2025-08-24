@@ -1,3 +1,5 @@
+package chatbot.taskhandler;
+
 public class Event extends Task {
     private final String startDate;
     private final String endDate;
@@ -6,6 +8,9 @@ public class Event extends Task {
         super(name);
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+    public String formatData() {
+        return "E | " + super.formatData() + " | " + startDate + " | " + endDate;
     }
 
     @Override

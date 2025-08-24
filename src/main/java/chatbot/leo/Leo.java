@@ -1,10 +1,19 @@
+package chatbot.leo;
+
 import java.util.Scanner;
+
+import chatbot.exceptions.LeoException;
+import chatbot.inputreader.CommandType;
+import chatbot.taskhandler.Task;
+import chatbot.taskhandler.TaskManager;
+
 
 public class Leo {
     public static void main(String[] args) throws LeoException {
         // greets the user
         printLine();
         TaskManager taskManager = new TaskManager();
+        taskManager.loadDataFromFile("data/leo.txt");
 
         System.out.println("Hello, 🌟 I'm Leo, your favorite chatbot!");
         System.out.println("What can I do for you today?");
