@@ -5,6 +5,7 @@ public class Leo {
         // greets the user
         printLine();
         TaskManager taskManager = new TaskManager();
+        taskManager.loadDataFromFile("data/leo.txt");
 
         System.out.println("Hello, 🌟 I'm Leo, your favorite chatbot!");
         System.out.println("What can I do for you today?");

@@ -7,8 +7,16 @@ public class Task {
         this.isDone = false; // Task is initially not done
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setDone(boolean done) {
         isDone = done;
+    }
+
+    public String formatData() {
+        return (isDone ? "1" : "0") + " | " + name; // Formats the task data for file writing
     }
 
     @Override

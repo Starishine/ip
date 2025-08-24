@@ -6,6 +6,10 @@ public class Deadline extends Task {
         this.dueDate = dueDate;
     }
 
+    public String formatData() {
+        return "D | " + super.formatData() + " | " + dueDate;
+    }
+
     @Override
     public String toString() {
         return "[D] " + super.toString() + " (by: " + dueDate + ")";

@@ -7,6 +7,9 @@ public class Event extends Task {
         this.startDate = startDate;
         this.endDate = endDate;
     }
+    public String formatData() {
+        return "E | " + super.formatData() + " | " + startDate + " | " + endDate;
+    }
 
     @Override
     public String toString() {
