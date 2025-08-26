@@ -61,7 +61,7 @@ public class TaskManager {
      *
      * @param filePath The path to the file containing the tasks.
      */
-    public void loadDataFromFile(String filePath) {
+    public void loadDataFromFile(String filePath) throws LeoException {
         try {
             List<String> lines = FileWriting.readFromFile(filePath);
             for (String line : lines) {
@@ -93,6 +93,8 @@ public class TaskManager {
             }
         } catch (IOException e) {
             System.out.println("Something went wrong while loading data: " + e.getMessage());
+        } catch (LeoException e) {
+            System.out.println(e.getMessage());
         }
     }
 
