@@ -10,6 +10,10 @@ import java.util.List;
 public class TaskManager {
     public final List<Task> todoList = new ArrayList<>();
 
+    public TaskManager() {
+        this.loadDataFromFile("data/leo.txt");
+    }
+
     /**
      * Creates a task based on the input string.
      * The input should start with "todo", "deadline", or "event".
@@ -61,7 +65,7 @@ public class TaskManager {
      *
      * @param filePath The path to the file containing the tasks.
      */
-    public void loadDataFromFile(String filePath) throws LeoException {
+    public void loadDataFromFile(String filePath) {
         try {
             List<String> lines = FileWriting.readFromFile(filePath);
             for (String line : lines) {

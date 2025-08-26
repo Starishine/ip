@@ -3,6 +3,13 @@
 REM create bin directory if it doesn't exist
 if not exist ..\bin mkdir ..\bin
 
+REM delete old class files
+if exist ..\bin\chatbot\leo\*.class del ..\bin\chatbot\leo\*.class
+if exist ..\bin\chatbot\exceptions\*.class del ..\bin\chatbot\exceptions\*.class
+if exist ..\bin\chatbot\inputreader\*.class del ..\bin\chatbot\inputreader\*.class
+if exist ..\bin\chatbot\taskhandler\*.class del ..\bin\chatbot\taskhandler\*.class
+
+
 REM delete output from previous run
 if exist ACTUAL.TXT del ACTUAL.TXT
 
