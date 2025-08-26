@@ -3,10 +3,9 @@ package chatbot.leo;
 import java.util.Scanner;
 
 import chatbot.exceptions.LeoException;
-import chatbot.inputreader.CommandType;
 import chatbot.taskhandler.CommandHandler;
-import chatbot.taskhandler.Task;
 import chatbot.taskhandler.TaskManager;
+import chatbot.taskhandler.Ui;
 
 
 public class Leo {
@@ -14,16 +13,16 @@ public class Leo {
     private final Scanner scanner;
 
 
-    public Leo () {
-        TaskManager taskManager = new TaskManager();
+    public Leo (String filePath) {
+        TaskManager taskManager = new TaskManager(filePath);
         this.commandHandler = new CommandHandler(taskManager);
         this.scanner = new Scanner(System.in);
     }
 
     public void start() {
-        printLine();
-        System.out.println("Hello, 🌟 I'm Leo, your favorite chatbot!");
-        System.out.println("What can I do for you today?");
+        Ui ui = new Ui();
+        ui.showLine();
+        ui.showWelcome();
         String input = scanner.nextLine();
         while (!input.equals("bye")){
             try {
@@ -33,19 +32,14 @@ public class Leo {
             }
             input = scanner.nextLine();
         }
-        System.out.println("Bye 👋 ! Hope to see you soon!");
+        ui.showGoodbye();
         scanner.close();
     }
 
 
-    public static void main(String[] args) throws LeoException {
-        Leo leo = new Leo();
+    public static void main(String[] args) {
+        Leo leo = new Leo("data/leo.txt");
         leo.start();
-    }
-
-
-    public static void printLine() {
-        System.out.println("___________________________________________");
     }
 
 }
