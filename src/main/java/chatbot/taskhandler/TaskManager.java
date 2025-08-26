@@ -8,7 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskManager {
+    private String filePath;
     public final List<Task> todoList = new ArrayList<>();
+
+    public TaskManager(String filePath) {
+        this.filePath = filePath;
+        this.loadDataFromFile(filePath);
+    }
 
     /**
      * Creates a task based on the input string.
@@ -61,7 +67,7 @@ public class TaskManager {
      *
      * @param filePath The path to the file containing the tasks.
      */
-    public void loadDataFromFile(String filePath) throws LeoException {
+    public void loadDataFromFile(String filePath) {
         try {
             List<String> lines = FileWriting.readFromFile(filePath);
             for (String line : lines) {
@@ -101,10 +107,9 @@ public class TaskManager {
     /**
      * Saves the current list of tasks to a file.
      *
-     * @param tasks    The list of tasks to be saved.
-     * @param filePath The path to the file where tasks will be saved.
+     * @param tasks The list of tasks to be saved.
      */
-    public void saveTasksToFile(List<Task> tasks, String filePath) {
+    public void saveTasksToFile(List<Task> tasks) {
         try {
             FileWriting.writeToFile(filePath, tasks);
         } catch (IOException e) {
@@ -119,7 +124,7 @@ public class TaskManager {
      */
     public void addTask(Task task) {
         todoList.add(task); // Adds a new task to the list
-        saveTasksToFile(todoList, "data/leo.txt");
+        saveTasksToFile(todoList);
         System.out.println("Got it! I've added this task: " + task);
         System.out.println("Now you have " + todoList.size() + " tasks in the list.");
     }
@@ -135,7 +140,7 @@ public class TaskManager {
             if (index >= 0 && index < todoList.size()) {
                 Task task = todoList.get(index);
                 task.setDone(false);
-                saveTasksToFile(todoList, "data/leo.txt");
+                saveTasksToFile(todoList);
                 System.out.println("Marked as not done: " + task);
             } else {
                 throw new LeoException("UH-OH!!! Invalid task number.");
@@ -154,7 +159,7 @@ public class TaskManager {
             if (index >= 0 && index < todoList.size()) {
                 Task task = todoList.get(index);
                 task.setDone(true);
-                saveTasksToFile(todoList, "data/leo.txt");
+                saveTasksToFile(todoList);
                 System.out.println("Marked as done: " + task);
             } else {
                 throw new LeoException("UH-OH!!! Invalid task number.");
@@ -172,7 +177,7 @@ public class TaskManager {
             int index = Integer.parseInt(words[1]) - 1;
             if (index >= 0 && index < todoList.size()) {
                 Task taskRemoved = todoList.remove(index);
-                saveTasksToFile(todoList, "data/leo.txt");
+                saveTasksToFile(todoList);
                 System.out.println("Removed Task: " + taskRemoved);
                 System.out.println("Now you have " + todoList.size() + " tasks in the list.");
             } else {
