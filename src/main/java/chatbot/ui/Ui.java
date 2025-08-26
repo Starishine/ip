@@ -1,4 +1,4 @@
-package chatbot.taskhandler;
+package chatbot.ui;
 
 public class Ui {
     public void showLine() {

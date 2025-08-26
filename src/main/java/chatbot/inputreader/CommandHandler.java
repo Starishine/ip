@@ -1,9 +1,8 @@
-package chatbot.taskhandler;
+package chatbot.inputreader;
 
 import chatbot.exceptions.LeoException;
-import chatbot.inputreader.CommandType;
-
-import java.util.Scanner;
+import chatbot.taskhandler.Task;
+import chatbot.taskhandler.TaskManager;
 
 public class CommandHandler {
     private final TaskManager taskManager;

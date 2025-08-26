@@ -8,6 +8,7 @@ if exist ..\bin\chatbot\leo\*.class del ..\bin\chatbot\leo\*.class
 if exist ..\bin\chatbot\exceptions\*.class del ..\bin\chatbot\exceptions\*.class
 if exist ..\bin\chatbot\inputreader\*.class del ..\bin\chatbot\inputreader\*.class
 if exist ..\bin\chatbot\taskhandler\*.class del ..\bin\chatbot\taskhandler\*.class
+if exist ..\bin\chatbot\ui\*.class del ..\bin\chatbot\ui\*.class
 
 
 REM delete output from previous run
@@ -18,6 +19,7 @@ javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\chatbot\leo\*
 javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\chatbot\exceptions\*.java
 javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\chatbot\inputreader\*.java
 javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\chatbot\taskhandler\*.java
+javac -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\chatbot\ui\*.java
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
     exit /b 1

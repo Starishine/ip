@@ -3,9 +3,9 @@ package chatbot.leo;
 import java.util.Scanner;
 
 import chatbot.exceptions.LeoException;
-import chatbot.taskhandler.CommandHandler;
+import chatbot.inputreader.CommandHandler;
 import chatbot.taskhandler.TaskManager;
-import chatbot.taskhandler.Ui;
+import chatbot.ui.Ui;
 
 
 public class Leo {
