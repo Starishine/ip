@@ -35,6 +35,9 @@ public class CommandHandler {
                     Task task = taskManager.createTask(input);
                     taskManager.addTask(task);
                     break;
+                case FIND:
+                    taskManager.findTasks(words);
+                    break;
                 default:
                     throw new LeoException("UH-OH!!! Cannot understand your command. " +
                             "Please use 'todo', 'deadline', 'event', 'mark', 'unmark', 'list', or 'delete'.");
