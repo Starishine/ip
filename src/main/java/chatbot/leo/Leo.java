@@ -13,7 +13,7 @@ public class Leo {
     private final Scanner scanner;
 
 
-    public Leo (String filePath) {
+    public Leo(String filePath) {
         TaskManager taskManager = new TaskManager(filePath);
         this.commandHandler = new CommandHandler(taskManager);
         this.scanner = new Scanner(System.in);
@@ -24,7 +24,7 @@ public class Leo {
         ui.showLine();
         ui.showWelcome();
         String input = scanner.nextLine();
-        while (!input.equals("bye")){
+        while (!input.equals("bye")) {
             try {
                 commandHandler.handleCommand(input);
             } catch (LeoException e) {

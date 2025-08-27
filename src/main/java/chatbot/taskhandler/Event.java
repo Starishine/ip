@@ -19,13 +19,14 @@ public class Event extends Task {
 
 
         try {
-           this.startDate = LocalDate.parse(startDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-           this.endDate = LocalDate.parse(endDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            this.startDate = LocalDate.parse(startDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            this.endDate = LocalDate.parse(endDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         } catch (DateTimeException e) {
             throw new LeoException("UH-OH!!! The startDate/endDate format is invalid. "
                     + "Please use YYYY-MM-DD format.");
         }
     }
+
     public String formatData() {
         return "E | " + super.formatData() + " | " + stringStartDate + " | " + stringEndDate;
     }

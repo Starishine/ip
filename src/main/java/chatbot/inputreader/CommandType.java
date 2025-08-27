@@ -1,4 +1,5 @@
 package chatbot.inputreader;
+
 /**
  * Enum representing the different types of commands that can be processed.
  */
