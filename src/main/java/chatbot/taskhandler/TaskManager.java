@@ -207,4 +207,30 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Finds and prints tasks that contain the given keyword.
+     * @param words The input command split into words, where the second word is the keyword.
+     * @throws LeoException If no keyword is provided.
+     */
+    public void findTasks(String[] words) throws LeoException {
+        if (words.length < 2) {
+            throw new LeoException("UH-OH!!! Please provide a keyword to search for.");
+        }
+        String keyword = String.join(" ", java.util.Arrays.copyOfRange(words, 1, words.length));
+        List<Task> foundTasks = new ArrayList<>();
+        for (Task task : todoList) {
+            if (task.getName().toLowerCase().contains(keyword.toLowerCase())) {
+                foundTasks.add(task);
+            }
+        }
+        System.out.println("Here are the matching tasks in your list:");
+        if (foundTasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else  {
+            for (int i = 0; i < foundTasks.size(); i++) {
+                System.out.println((i + 1) + ". " + foundTasks.get(i));
+            }
+        }
+    }
+
 }
