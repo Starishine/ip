@@ -7,7 +7,10 @@ import chatbot.inputreader.CommandHandler;
 import chatbot.taskhandler.TaskManager;
 import chatbot.ui.Ui;
 
-
+/**
+ * The main class for the Leo chatbot application.
+ * It initializes the necessary components and starts the interaction loop with the user.
+ */
 public class Leo {
     private final CommandHandler commandHandler;
     private final Scanner scanner;
@@ -19,6 +22,10 @@ public class Leo {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Starts the Leo chatbot interaction loop.
+     * It greets the user, processes commands, and says goodbye when the user exits.
+     */
     public void start() {
         Ui ui = new Ui();
         ui.showLine();

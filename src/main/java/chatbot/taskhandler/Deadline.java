@@ -7,6 +7,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a task with a deadline.
+ * A Deadline object contains the task name and the due date.
+ */
 public class Deadline extends Task {
     private final String stringDueDate;
     private final LocalDateTime dueDate;

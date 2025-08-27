@@ -1,5 +1,8 @@
 package chatbot.ui;
 
+/**
+ * Ui class handles basic interactions with the user, including displaying messages.
+ */
 public class Ui {
     public void showLine() {
         System.out.println("___________________________________________");

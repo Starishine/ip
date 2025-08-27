@@ -1,5 +1,8 @@
 package chatbot.taskhandler;
 
+/**
+ * Represents an todo task with a name.
+ */
 public class ToDo extends Task {
 
     public ToDo(String name) {
