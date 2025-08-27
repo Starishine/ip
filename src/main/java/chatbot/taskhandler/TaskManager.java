@@ -135,6 +135,7 @@ public class TaskManager {
 
     /**
      * Marks a task as not done based on the input command.
+     *
      * @param words The input command split into words.
      * @throws LeoException If the task number is invalid.
      */
@@ -154,6 +155,7 @@ public class TaskManager {
 
     /**
      * Marks a task as done based on the input command.
+     *
      * @param words The input command split into words.
      * @throws LeoException If the task number is invalid.
      */
@@ -173,6 +175,7 @@ public class TaskManager {
 
     /**
      * Deletes a task from the todo list based on the input command.
+     *
      * @param words The input command split into words.
      * @throws LeoException If the task number is invalid.
      */

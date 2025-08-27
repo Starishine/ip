@@ -9,11 +9,11 @@ public class Ui {
     }
 
     public void showWelcome() {
-        System.out.println("Hello, 🌟 I'm Leo, your favorite chatbot!"+ "\n"
+        System.out.println("Hello, 🌟 I'm Leo, your favorite chatbot!" + "\n"
                 + "What can I do for you today?");
     }
 
     public void showGoodbye() {
-       System.out.println("Bye 👋 ! Hope to see you soon!");
+        System.out.println("Bye 👋 ! Hope to see you soon!");
     }
 }
