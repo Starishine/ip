@@ -12,6 +12,10 @@ public class Task {
         this.isDone = false; // Task is initially not done
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setDone(boolean done) {
         isDone = done;
     }
