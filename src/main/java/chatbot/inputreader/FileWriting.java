@@ -11,6 +11,9 @@ import java.io.IOException;
 
 import java.util.List;
 
+/**
+ * Utility class for reading from and writing to files.
+ */
 public class FileWriting {
 
     /**

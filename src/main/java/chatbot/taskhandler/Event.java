@@ -6,6 +6,10 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an event task with a start date and an end date.
+ * An Event object contains the task name, start date, and end date.
+ */
 public class Event extends Task {
     private final String stringStartDate;
     private final String stringEndDate;

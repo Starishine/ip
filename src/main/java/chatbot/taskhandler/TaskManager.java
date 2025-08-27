@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Manages a list of tasks, including loading from and saving to a file.
+ * Provides methods to create, add, mark, unmark, delete, and print tasks.
+ */
 public class TaskManager {
     private String filePath;
     public final List<Task> todoList = new ArrayList<>();

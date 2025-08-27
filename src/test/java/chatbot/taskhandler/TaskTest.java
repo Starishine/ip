@@ -3,6 +3,9 @@ package chatbot.taskhandler;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test class for Task.
+ */
 public class TaskTest {
     @Test
     public void testToDoCreation() {

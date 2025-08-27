@@ -4,6 +4,9 @@ import chatbot.exceptions.LeoException;
 import chatbot.taskhandler.Task;
 import chatbot.taskhandler.TaskManager;
 
+/**
+ * Handles user commands and interacts with the TaskManager.
+ */
 public class CommandHandler {
     private final TaskManager taskManager;
 
@@ -11,6 +14,12 @@ public class CommandHandler {
         this.taskManager = taskManager;
     }
 
+    /**
+     * Processes the user input command and executes the corresponding action.
+     *
+     * @param input The user input command as a string.
+     * @throws LeoException If there is an error processing the command.
+     */
     public void handleCommand(String input) throws LeoException {
        String[] words = input.split(" ");
        CommandType command = CommandType.fromString(words[0]);
