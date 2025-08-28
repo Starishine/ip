@@ -16,11 +16,18 @@ public class Event extends Task {
     private final LocalDate startDate;
     private final LocalDate endDate;
 
+    /**
+     * Constructs an Event object with the specified name, start date, and end date.
+     *
+     * @param name      The name of the task.
+     * @param startDate The start date of the event in "yyyy-MM-dd" format.
+     * @param endDate   The end date of the event in "yyyy-MM-dd" format.
+     * @throws LeoException If the start date or end date format is invalid.
+     */
     public Event(String name, String startDate, String endDate) throws LeoException {
         super(name);
         this.stringStartDate = startDate;
         this.stringEndDate = endDate;
-
 
         try {
             this.startDate = LocalDate.parse(startDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));

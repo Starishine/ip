@@ -15,6 +15,12 @@ public class TaskManager {
     private String filePath;
     public final List<Task> todoList = new ArrayList<>();
 
+    /**
+     * Constructs a TaskManager with the specified file path for task storage.
+     * Loads existing tasks from the file into the todoList.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public TaskManager(String filePath) {
         this.filePath = filePath;
         this.loadDataFromFile(filePath);

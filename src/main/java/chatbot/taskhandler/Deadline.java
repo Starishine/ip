@@ -16,6 +16,13 @@ public class Deadline extends Task {
     private final String stringDueDate;
     private final LocalDateTime dueDate;
 
+    /**
+     * Constructs a Deadline object with the specified name and due date.
+     *
+     * @param name    The name of the task.
+     * @param dueDate The due date of the task in "yyyy-MM-dd" or "yyyy-MM-dd HHmm" format.
+     * @throws LeoException If the due date format is invalid.
+     */
     public Deadline(String name, String dueDate) throws LeoException {
         super(name);
         this.stringDueDate = dueDate;

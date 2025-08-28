@@ -5,6 +5,11 @@ package chatbot.taskhandler;
  */
 public class ToDo extends Task {
 
+    /**
+     * Constructs a ToDo task with the given name.
+     *
+     * @param name The name of the todo task.
+     */
     public ToDo(String name) {
         super(name);
     }

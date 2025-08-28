@@ -15,7 +15,11 @@ public class Leo {
     private final CommandHandler commandHandler;
     private final Scanner scanner;
 
-
+    /**
+     * Constructs a Leo chatbot instance with the specified file path for task storage.
+     *
+     * @param filePath The file path where tasks are stored.
+     */
     public Leo(String filePath) {
         TaskManager taskManager = new TaskManager(filePath);
         this.commandHandler = new CommandHandler(taskManager);

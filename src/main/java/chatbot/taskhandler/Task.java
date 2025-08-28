@@ -7,6 +7,11 @@ public class Task {
     private final String name;
     private boolean isDone;
 
+    /**
+     * Constructs a Task with the given name. The task is initially not done.
+     *
+     * @param name The name of the task.
+     */
     public Task(String name) {
         this.name = name;
         this.isDone = false; // Task is initially not done

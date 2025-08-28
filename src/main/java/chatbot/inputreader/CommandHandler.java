@@ -10,6 +10,11 @@ import chatbot.taskhandler.TaskManager;
 public class CommandHandler {
     private final TaskManager taskManager;
 
+    /**
+     * Constructs a CommandHandler with the specified TaskManager.
+     *
+     * @param taskManager The TaskManager to manage tasks.
+     */
     public CommandHandler(TaskManager taskManager) {
         this.taskManager = taskManager;
     }
@@ -48,8 +53,8 @@ public class CommandHandler {
                     taskManager.findTasks(words);
                     break;
                 default:
-                    throw new LeoException("UH-OH!!! Cannot understand your command. " +
-                            "Please use 'todo', 'deadline', 'event', 'mark', 'unmark', 'list', or 'delete'.");
+                    throw new LeoException("UH-OH!!! Cannot understand your command. "
+                            + "Please use 'todo', 'deadline', 'event', 'mark', 'unmark', 'list', or 'delete'.");
 
             }
         } catch (LeoException e) {
