@@ -1,6 +1,7 @@
 package chatbot.taskhandler;
 
 import chatbot.exceptions.LeoException;
+import chatbot.inputreader.CommandHandler;
 import chatbot.inputreader.FileWriting;
 
 import java.io.IOException;
@@ -80,33 +81,8 @@ public class TaskManager {
     public void loadDataFromFile(String filePath) {
         try {
             List<String> lines = FileWriting.readFromFile(filePath);
-            for (String line : lines) {
-                String[] parts = line.split(" \\| ");
-                String taskType = parts[0];
-                boolean isDone = parts[1].equals("1");
-                String description = parts[2];
-
-                Task task;
-                switch (taskType) {
-                case "T":
-                    task = new ToDo(description);
-                    break;
-                case "D":
-                    String dueDate = parts[3];
-                    task = new Deadline(description, dueDate);
-                    break;
-                case "E":
-                    String startDate = parts[3];
-                    String endDate = parts[4];
-                    task = new Event(description, startDate, endDate);
-                    break;
-                default:
-                    System.out.println("Unknown task type in file: " + taskType);
-                    continue; // Skip unknown task types
-                }
-                task.setDone(isDone);
-                todoList.add(task);
-            }
+            CommandHandler commandHandler = new CommandHandler(this);
+            commandHandler.handleCommandFromFile(lines);
         } catch (IOException e) {
             System.out.println("Something went wrong while loading data: " + e.getMessage());
         } catch (LeoException e) {

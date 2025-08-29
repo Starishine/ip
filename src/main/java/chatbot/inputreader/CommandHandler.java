@@ -1,8 +1,14 @@
 package chatbot.inputreader;
 
+import java.io.IOException;
+import java.util.List;
+
 import chatbot.exceptions.LeoException;
+import chatbot.taskhandler.Deadline;
+import chatbot.taskhandler.Event;
 import chatbot.taskhandler.Task;
 import chatbot.taskhandler.TaskManager;
+import chatbot.taskhandler.ToDo;
 
 /**
  * Handles user commands and interacts with the TaskManager.
@@ -61,6 +67,42 @@ public class CommandHandler {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    /**
+     * Handles commands read from a file and adds them to the TaskManager.
+     *
+     * @param lines The list of command lines read from the file.
+     * @throws LeoException If there is an error processing the commands.
+     */
+    public void handleCommandFromFile(List<String> lines) throws LeoException {
+        for (String line : lines) {
+            String[] parts = line.split(" \\| ");
+            String taskType = parts[0];
+            boolean isDone = parts[1].equals("1");
+            String description = parts[2];
+            Task task;
+
+            switch (taskType) {
+            case "T":
+                task = new ToDo(description);
+                break;
+            case "D":
+                String dueDate = parts[3];
+                task = new Deadline(description, dueDate);
+                break;
+            case "E":
+                String startDate = parts[3];
+                String endDate = parts[4];
+                task = new Event(description, startDate, endDate);
+                break;
+            default:
+                System.out.println("Unknown task type in file: " + taskType);
+                continue; // Skip unknown task types
+            }
+            task.setDone(isDone);
+            this.taskManager.addTask(task);
+        }
     }
 
 }
