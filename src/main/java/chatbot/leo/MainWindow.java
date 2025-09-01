@@ -1,5 +1,7 @@
 package chatbot.leo;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * Controller for the main GUI.
@@ -24,10 +27,14 @@ public class MainWindow extends AnchorPane {
     private Leo leo;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/userImage.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/leoImage.png"));
+    private Image leoImage = new Image(this.getClass().getResourceAsStream("/images/leoImage.png"));
 
     @FXML
     public void initialize() {
+        userInput.clear();
+        String welcomeMessage = "Hello, I'm Leo, your favorite chatbot!\n"
+                + "What can I do for you today?";
+        dialogContainer.getChildren().add(DialogBox.getLeoDialog(welcomeMessage, leoImage));
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
@@ -43,11 +50,23 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = leo.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getLeoDialog(response, dukeImage)
-        );
+
+        if (input.equalsIgnoreCase("bye")) {
+            String exitMsg = "Bye ! Hope to see you soon!";
+            dialogContainer.getChildren().add(DialogBox.getLeoDialog(exitMsg, leoImage));
+            PauseTransition pause = new PauseTransition(Duration.seconds(1));
+            pause.setOnFinished(event -> {
+                Platform.exit();
+            });
+            pause.play();
+        } else {
+            String response = leo.start(input);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getLeoDialog(response, leoImage)
+            );
+        }
+
         userInput.clear();
     }
 }

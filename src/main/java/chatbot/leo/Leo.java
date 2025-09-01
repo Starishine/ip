@@ -1,11 +1,10 @@
 package chatbot.leo;
 
-import java.util.Scanner;
-
 import chatbot.exceptions.LeoException;
 import chatbot.inputreader.CommandHandler;
 import chatbot.taskhandler.TaskManager;
 import chatbot.ui.Ui;
+
 
 /**
  * The main class for the Leo chatbot application.
@@ -13,7 +12,6 @@ import chatbot.ui.Ui;
  */
 public class Leo {
     private final CommandHandler commandHandler;
-    private final Scanner scanner;
 
     /**
      * Constructs a Leo chatbot instance with the specified file path for task storage.
@@ -23,37 +21,32 @@ public class Leo {
     public Leo(String filePath) {
         TaskManager taskManager = new TaskManager(filePath);
         this.commandHandler = new CommandHandler(taskManager);
-        this.scanner = new Scanner(System.in);
     }
 
     /**
      * Starts the Leo chatbot interaction loop.
      * It greets the user, processes commands, and says goodbye when the user exits.
      */
-    public void start() {
+    public String start(String input) {
         Ui ui = new Ui();
-        ui.showLine();
-        ui.showWelcome();
-        String input = scanner.nextLine();
-        while (!input.equals("bye")) {
+        System.out.println(ui.showWelcome());
+        if (!input.equals("bye")) {
             try {
-                commandHandler.handleCommand(input);
+                String output = commandHandler.handleCommand(input);
+                return output;
             } catch (LeoException e) {
-                System.out.println(e.getMessage());
+                String error = e.getMessage();
+                return error;
             }
-            input = scanner.nextLine();
+        } else {
+            String goodbyeMsg =  ui.showGoodbye();
+            System.out.println(goodbyeMsg);
         }
-        ui.showGoodbye();
-        scanner.close();
+        return "null";
     }
-
 
     public static void main(String[] args) {
         Leo leo = new Leo("data/leo.txt");
-        leo.start();
     }
 
-    public String getResponse(String input) {
-        return "You said: " + input;
-    }
 }
