@@ -77,10 +77,10 @@ public class TaskManagerTest {
 
         TaskManager manager = new TaskManager(filePath);
 
-        assertEquals(3, manager.todoList.size());
-        assertEquals("[T] [ ] Read a book", manager.todoList.get(0).toString());
-        assertEquals("[D] [X] Finish project (by: Dec 31 2025 18:00)", manager.todoList.get(1).toString());
-        assertEquals("[E] [ ] Meeting (from: Aug 30 2025 to: Aug 31 2025)", manager.todoList.get(2).toString());
+        assertEquals(3, manager.getTodoList().size());
+        assertEquals("[T] [ ] Read a book", manager.getTodoList().get(0).toString());
+        assertEquals("[D] [X] Finish project (by: Dec 31 2025 18:00)", manager.getTodoList().get(1).toString());
+        assertEquals("[E] [ ] Meeting (from: Aug 30 2025 to: Aug 31 2025)", manager.getTodoList().get(2).toString());
     }
 
     @Test
@@ -93,7 +93,7 @@ public class TaskManagerTest {
         manager.addTask(todo);
         String[] command = {"mark", "1"};
         manager.markTask(command);
-        assertEquals("[T] [X] Read a book", manager.todoList.get(0).toString());
+        assertEquals("[T] [X] Read a book", manager.getTodoList().get(0).toString());
     }
 
     @Test
@@ -122,11 +122,11 @@ public class TaskManagerTest {
         manager.addTask(todo);
         String[] markCommand = {"mark", "1"};
         manager.markTask(markCommand);
-        assertEquals("[T] [X] Read a book", manager.todoList.get(0).toString());
+        assertEquals("[T] [X] Read a book", manager.getTodoList().get(0).toString());
 
         String[] unmarkCommand = {"unmark", "1"};
         manager.unmarkTask(unmarkCommand);
-        assertEquals("[T] [ ] Read a book", manager.todoList.get(0).toString());
+        assertEquals("[T] [ ] Read a book", manager.getTodoList().get(0).toString());
     }
 
     @Test
@@ -137,11 +137,11 @@ public class TaskManagerTest {
         TaskManager manager = new TaskManager(tempFile.getAbsolutePath());
         Task todo = new ToDo("Read a book");
         manager.addTask(todo);
-        assertEquals(1, manager.todoList.size());
+        assertEquals(1, manager.getTodoList().size());
 
         String[] deleteCommand = {"delete", "1"};
         manager.deleteTask(deleteCommand);
-        assertEquals(0, manager.todoList.size());
+        assertEquals(0, manager.getTodoList().size());
     }
 
 }
