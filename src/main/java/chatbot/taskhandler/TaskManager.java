@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class TaskManager {
     private String filePath;
-    public final List<Task> todoList = new ArrayList<>();
+    private List<Task> todoList = new ArrayList<>();
 
     /**
      * Constructs a TaskManager with the specified file path for task storage.
@@ -25,6 +25,10 @@ public class TaskManager {
     public TaskManager(String filePath) {
         this.filePath = filePath;
         this.loadDataFromFile(filePath);
+    }
+
+    public List<Task> getTodoList() {
+        return todoList;
     }
 
     /**
