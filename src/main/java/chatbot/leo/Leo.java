@@ -53,4 +53,7 @@ public class Leo {
         leo.start();
     }
 
+    public String getResponse(String input) {
+        return "You said: " + input;
+    }
 }
