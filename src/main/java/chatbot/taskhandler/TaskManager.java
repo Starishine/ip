@@ -130,7 +130,7 @@ public class TaskManager {
      * @param words The input command split into words.
      * @throws LeoException If the task number is invalid.
      */
-    public String unmarkTask(String[] words) throws LeoException {
+    public String unmarkTask(String... words) throws LeoException {
         if (words.length > 1) {
             int index = Integer.parseInt(words[1]) - 1;
             if (index >= 0 && index < todoList.size()) {
@@ -154,7 +154,7 @@ public class TaskManager {
      * @param words The input command split into words.
      * @throws LeoException If the task number is invalid.
      */
-    public String markTask(String[] words) throws LeoException {
+    public String markTask(String... words) throws LeoException {
         if (words.length > 1) {
             int index = Integer.parseInt(words[1]) - 1;
             if (index >= 0 && index < todoList.size()) {
@@ -178,7 +178,7 @@ public class TaskManager {
      * @param words The input command split into words.
      * @throws LeoException If the task number is invalid.
      */
-    public String deleteTask(String[] words) throws LeoException {
+    public String deleteTask(String... words) throws LeoException {
         if (words.length > 1) {
             int index = Integer.parseInt(words[1]) - 1;
             if (index >= 0 && index < todoList.size()) {
@@ -225,7 +225,7 @@ public class TaskManager {
      * @param words The input command split into words, where the second word is the keyword.
      * @throws LeoException If no keyword is provided.
      */
-    public String findTasks(String[] words) throws LeoException {
+    public String findTasks(String... words) throws LeoException {
         if (words.length < 2) {
             throw new LeoException("UH-OH!!! Please provide a keyword to search for.");
         }
