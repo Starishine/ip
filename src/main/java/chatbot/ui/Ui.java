@@ -14,15 +14,15 @@ public class Ui {
     /**
      * Displays a welcome message to the user.
      */
-    public void showWelcome() {
-        System.out.println("Hello, 🌟 I'm Leo, your favorite chatbot!" + "\n"
-                + "What can I do for you today?");
+    public String showWelcome() {
+        return "Hello, I'm Leo, your favorite chatbot!" + "\n"
+                + "What can I do for you today?";
     }
 
     /**
      * Displays a goodbye message to the user.
      */
-    public void showGoodbye() {
-        System.out.println("Bye 👋 ! Hope to see you soon!");
+    public String showGoodbye() {
+        return "Bye ! Hope to see you soon!";
     }
 }

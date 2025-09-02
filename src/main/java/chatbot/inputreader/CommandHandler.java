@@ -30,30 +30,25 @@ public class CommandHandler {
      * @param input The user input command as a string.
      * @throws LeoException If there is an error processing the command.
      */
-    public void handleCommand(String input) throws LeoException {
+    public String handleCommand(String input) throws LeoException {
         String[] words = input.split(" ");
         CommandType command = CommandType.fromString(words[0]);
         // echoes user input until "bye" is entered
         try {
             switch (command) {
             case MARK:
-                taskManager.markTask(words);
-                break;
+                return taskManager.markTask(words);
             case UNMARK:
-                taskManager.unmarkTask(words);
-                break;
+                return taskManager.unmarkTask(words);
             case LIST:
-                taskManager.printList();
-                break;
+                return taskManager.printList();
             case DELETE:
-                taskManager.deleteTask(words);
-                break;
+                return taskManager.deleteTask(words);
             case TODO:
             case DEADLINE:
             case EVENT:
                 Task task = taskManager.createTask(input);
-                taskManager.addTask(task);
-                break;
+                return taskManager.addTask(task);
             case FIND:
                 taskManager.findTasks(words);
                 break;
@@ -62,8 +57,11 @@ public class CommandHandler {
                         + "Please use 'todo', 'deadline', 'event', 'mark', 'unmark', 'list', or 'delete'.");
             }
         } catch (LeoException e) {
-            System.out.println(e.getMessage());
+            String errorMessage = e.getMessage();
+            System.out.println(errorMessage);
+            return errorMessage;
         }
+        return null;
     }
 
     /**

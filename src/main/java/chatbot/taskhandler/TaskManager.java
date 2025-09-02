@@ -3,6 +3,7 @@ package chatbot.taskhandler;
 import chatbot.exceptions.LeoException;
 import chatbot.inputreader.CommandHandler;
 import chatbot.inputreader.FileWriting;
+import chatbot.leo.Leo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -112,11 +113,15 @@ public class TaskManager {
      *
      * @param task The task to be added.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         todoList.add(task); // Adds a new task to the list
         saveTasksToFile(todoList);
-        System.out.println("Got it! I've added this task: " + task);
-        System.out.println("Now you have " + todoList.size() + " tasks in the list.");
+        String confirm = "Got it! I've added this task: " + task;
+        String display = "Now you have " + todoList.size() + " tasks in the list.";
+        System.out.println(confirm);
+        System.out.println(display);
+
+        return confirm + "\n" + display;
     }
 
     /**
@@ -125,17 +130,21 @@ public class TaskManager {
      * @param words The input command split into words.
      * @throws LeoException If the task number is invalid.
      */
-    public void unmarkTask(String[] words) throws LeoException {
+    public String unmarkTask(String[] words) throws LeoException {
         if (words.length > 1) {
             int index = Integer.parseInt(words[1]) - 1;
             if (index >= 0 && index < todoList.size()) {
                 Task task = todoList.get(index);
                 task.setDone(false);
                 saveTasksToFile(todoList);
-                System.out.println("Marked as not done: " + task);
+                String confirm = "Marked as not done: " + task;
+                System.out.println(confirm);
+                return confirm;
             } else {
                 throw new LeoException("UH-OH!!! Invalid task number.");
             }
+        } else {
+            throw new LeoException("UH-OH!!! Invalid format. Use unmark <task number>");
         }
     }
 
@@ -145,17 +154,21 @@ public class TaskManager {
      * @param words The input command split into words.
      * @throws LeoException If the task number is invalid.
      */
-    public void markTask(String[] words) throws LeoException {
+    public String markTask(String[] words) throws LeoException {
         if (words.length > 1) {
             int index = Integer.parseInt(words[1]) - 1;
             if (index >= 0 && index < todoList.size()) {
                 Task task = todoList.get(index);
                 task.setDone(true);
                 saveTasksToFile(todoList);
-                System.out.println("Marked as done: " + task);
+                String confirm =  "Marked as done: " + task;
+                System.out.println(confirm);
+                return confirm;
             } else {
                 throw new LeoException("UH-OH!!! Invalid task number.");
             }
+        } else {
+            throw new LeoException("UH-OH!!! Invalid format. Use mark <task number>");
         }
     }
 
@@ -165,31 +178,45 @@ public class TaskManager {
      * @param words The input command split into words.
      * @throws LeoException If the task number is invalid.
      */
-    public void deleteTask(String[] words) throws LeoException {
+    public String deleteTask(String[] words) throws LeoException {
         if (words.length > 1) {
             int index = Integer.parseInt(words[1]) - 1;
             if (index >= 0 && index < todoList.size()) {
                 Task taskRemoved = todoList.remove(index);
                 saveTasksToFile(todoList);
-                System.out.println("Removed Task: " + taskRemoved);
-                System.out.println("Now you have " + todoList.size() + " tasks in the list.");
+                String confirmMsg = "Removed Task: " + taskRemoved;
+                String resultMsg = "Now you have " + todoList.size() + " tasks in the list.";
+
+                System.out.println(confirmMsg);
+                System.out.println(resultMsg);
+                return confirmMsg + "\n" + resultMsg;
             } else {
                 throw new LeoException("UH-OH!!! Invalid task number.");
             }
+        } else {
+            throw new LeoException("UH-OH!!! Invalid format. Use mark <task number>");
         }
     }
 
     /**
      * Prints the current todo list.
      */
-    public void printList() {
-        System.out.println("Here is your todo list:");
+    public String printList() {
+        String startLine  = "Here is your todo list:";
+        String result = startLine;
+        System.out.println(result);
+
         if (todoList.isEmpty()) {
-            System.out.println("Your todo list is empty.");
+            String emptyMsg = "Your todo list is empty.";
+            System.out.println(emptyMsg);
+            return emptyMsg;
         } else {
             for (int i = 0; i < todoList.size(); i++) {
-                System.out.println((i + 1) + ". " + todoList.get(i));
+                String todoTask = (i + 1) + ". " + todoList.get(i);
+                System.out.println(todoTask);
+                result += "\n" + todoTask;
             }
+            return result;
         }
     }
 
@@ -198,24 +225,29 @@ public class TaskManager {
      * @param words The input command split into words, where the second word is the keyword.
      * @throws LeoException If no keyword is provided.
      */
-    public void findTasks(String[] words) throws LeoException {
+    public String findTasks(String[] words) throws LeoException {
         if (words.length < 2) {
             throw new LeoException("UH-OH!!! Please provide a keyword to search for.");
         }
         String keyword = String.join(" ", java.util.Arrays.copyOfRange(words, 1, words.length));
         List<Task> foundTasks = new ArrayList<>();
+        String resultMsg = "Here are the matching tasks in your list: ";
         for (Task task : todoList) {
             if (task.getName().toLowerCase().contains(keyword.toLowerCase())) {
                 foundTasks.add(task);
             }
         }
-        System.out.println("Here are the matching tasks in your list:");
         if (foundTasks.isEmpty()) {
-            System.out.println("No matching tasks found.");
+            String emptyMsg = "No matching tasks found.";
+            System.out.println(emptyMsg);
+            return emptyMsg;
         } else  {
             for (int i = 0; i < foundTasks.size(); i++) {
-                System.out.println((i + 1) + ". " + foundTasks.get(i));
+                String foundTask = (i + 1) + ". " + foundTasks.get(i);
+                System.out.println(foundTask);
+                resultMsg += "\n" + foundTask;
             }
+            return resultMsg;
         }
     }
 
