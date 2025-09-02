@@ -33,7 +33,7 @@ public class CommandHandler {
     public String handleCommand(String input) throws LeoException {
         String[] words = input.split(" ");
         CommandType command = CommandType.fromString(words[0]);
-        // echoes user input until "bye" is entered
+
         try {
             switch (command) {
             case MARK:
@@ -50,8 +50,7 @@ public class CommandHandler {
                 Task task = taskManager.createTask(input);
                 return taskManager.addTask(task);
             case FIND:
-                taskManager.findTasks(words);
-                break;
+                return taskManager.findTasks(words);
             default:
                 throw new LeoException("UH-OH!!! Cannot understand your command. "
                         + "Please use 'todo', 'deadline', 'event', 'mark', 'unmark', 'list', or 'delete'.");
@@ -61,7 +60,6 @@ public class CommandHandler {
             System.out.println(errorMessage);
             return errorMessage;
         }
-        return null;
     }
 
     /**
