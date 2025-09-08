@@ -21,6 +21,7 @@ public class CommandHandler {
      * @param taskManager The TaskManager to manage tasks.
      */
     public CommandHandler(TaskManager taskManager) {
+        assert taskManager != null : "Taskmanager should not be null";
         this.taskManager = taskManager;
     }
 
@@ -69,8 +70,12 @@ public class CommandHandler {
      * @throws LeoException If there is an error processing the commands.
      */
     public void handleCommandFromFile(List<String> lines) throws LeoException {
+        assert lines != null : "Lines from file must not be null";
+
         for (String line : lines) {
+            assert line != null && !line.isBlank() : "Each line should not be null or blank";
             String[] parts = line.split(" \\| ");
+            assert parts.length >= 3 : "Line must have at least 3 parts - taskType, isDone, description";
             String taskType = parts[0];
             boolean isDone = parts[1].equals("1");
             String description = parts[2];
