@@ -24,6 +24,7 @@ public class TaskManager {
      * @param filePath The path to the file where tasks are stored.
      */
     public TaskManager(String filePath) {
+        assert filePath != null && !filePath.isBlank() : "File path must not be null or blank";
         this.filePath = filePath;
         this.loadDataFromFile(filePath);
     }
@@ -42,6 +43,11 @@ public class TaskManager {
      */
     public Task createTask(String input) throws LeoException {
         String[] words = input.trim().split("\\s+");
+        if (words.length == 0) {
+            throw new LeoException("UH-OHH!!!! Input cannot be empty");
+        }
+        assert words[0] != null : "First word should never be null here";
+
         if (words[0].equals("todo")) {
             String description = String.join(" ", java.util.Arrays.copyOfRange(words, 1, words.length));
             if (description.isEmpty()) {
@@ -114,10 +120,13 @@ public class TaskManager {
      * @param task The task to be added.
      */
     public String addTask(Task task) {
+        assert task != null : "Task should never be null here";
         todoList.add(task); // Adds a new task to the list
         saveTasksToFile(todoList);
+        assert todoList.contains(task) : "Task should have been added to todoList";
         String confirm = "Got it! I've added this task: " + task;
         String display = "Now you have " + todoList.size() + " tasks in the list.";
+
         System.out.println(confirm);
         System.out.println(display);
 
@@ -205,7 +214,7 @@ public class TaskManager {
         String startLine  = "Here is your todo list:";
         String result = startLine;
         System.out.println(result);
-
+        assert todoList != null : "todoList must not be null";
         if (todoList.isEmpty()) {
             String emptyMsg = "Your todo list is empty.";
             System.out.println(emptyMsg);

@@ -49,6 +49,7 @@ test {
 
 application {
     mainClass.set("chatbot.leo.Launcher")
+    applicationDefaultJvmArgs = ["-ea"]
 }
 
 shadowJar {

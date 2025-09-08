@@ -24,6 +24,8 @@ public class FileWriting {
      * @throws IOException If an I/O error occurs.
      */
     public static void writeToFile(String filePath, List<Task> tasks) throws IOException {
+        assert filePath != null && !filePath.isBlank(): "Filepath must not be null";
+        assert tasks != null : "tasks must not be null";
         FileWriter writer = new FileWriter(filePath);
         for (Task task : tasks) {
             writer.write(task.formatData() + System.lineSeparator());
@@ -40,6 +42,7 @@ public class FileWriting {
      * @throws IOException If an I/O error occurs.
      */
     public static List<String> readFromFile(String filePath) throws IOException {
+        assert filePath != null && !filePath.isBlank() : "Filepath must not be null or blank";
         File file = new File(filePath);
         if (!file.exists()) {
             // Create parent directories if they don't exist
