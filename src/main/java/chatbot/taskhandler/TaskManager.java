@@ -8,7 +8,6 @@ import chatbot.leo.Leo;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -36,54 +35,15 @@ public class TaskManager {
     }
 
     /**
-     * Creates a task based on the input string.
-     * The input should start with "todo", "deadline", or "event".
+     * Delegates the creation of a Task to the {@link TaskParser}.
+     * The input string should start with "todo", "deadline", or "event".
      *
-     * @param input The input string containing the task details.
-     * @return A Task object of type ToDo, Deadline, or Event.
-     * @throws LeoException If the input format is incorrect or if required details are missing.
+     * @param input The user input containing task details.
+     * @return A {@link Task} object (ToDo, Deadline, or Event) parsed from the input.
+     * @throws LeoException If the input format is invalid or required details are missing.
      */
     public Task createTask(String input) throws LeoException {
-        String[] words = input.trim().split("\\s+");
-        if (words.length == 0) {
-            throw new LeoException("UH-OHH!!!! Input cannot be empty");
-        }
-        assert words[0] != null : "First word should never be null here";
-
-        if (words[0].equals("todo")) {
-            String description = String.join(" ", java.util.Arrays.copyOfRange(words, 1, words.length));
-            if (description.isEmpty()) {
-                throw new LeoException("UH-OH!!!! Cannot create task: Description cannot be empty for 'todo'.");
-            }
-            return new ToDo(description);
-        } else if (words[0].equals("deadline")) {
-            String[] parts = input.split(" /by ", 2);
-            String description = parts[0].replaceFirst("deadline", "").trim();
-            if (description.isEmpty()) {
-                throw new LeoException("UH-OH!!!! Cannot create task: Description cannot be empty for 'deadline'.");
-            }
-            String dueDate = parts.length > 1 ? parts[1].trim() : "";
-            if (dueDate.isEmpty()) {
-                throw new LeoException("UH-OH!!!! Cannot create task: Due date cannot be empty for 'deadline'.");
-            }
-            return new Deadline(description, dueDate);
-        } else if (words[0].equals("event")) {
-            String[] parts = input.split(" /from | /to ", 3);
-            String description = parts[0].replaceFirst("event", "").trim();
-            if (description.isEmpty()) {
-                throw new LeoException("UH-OH!!!! Cannot create task: Description cannot be empty for 'event'.");
-            }
-            String startDate = parts.length > 1 ? parts[1].trim() : "";
-            String endDate = parts.length > 2 ? parts[2].trim() : "";
-            if (startDate.isEmpty() || endDate.isEmpty()) {
-                throw new LeoException("UH-OH!!!! Cannot create task: Start date and end date cannot be empty " +
-                        "for 'event'.");
-            }
-            return new Event(description, startDate, endDate);
-        } else {
-            throw new LeoException("UH-OH!!! Cannot create task: Unknown command. " +
-                    "Please use 'todo', 'deadline','event'.");
-        }
+        return TaskParser.parseTask(input);
     }
 
     /**
@@ -142,20 +102,20 @@ public class TaskManager {
      * @throws LeoException If the task number is invalid.
      */
     public String unmarkTask(String... words) throws LeoException {
-        if (words.length > 1) {
-            int index = Integer.parseInt(words[1]) - 1;
-            if (index >= 0 && index < todoList.size()) {
-                Task task = todoList.get(index);
-                task.setDone(false);
-                saveTasksToFile(todoList);
-                String confirm = "Marked as not done: " + task;
-                System.out.println(confirm);
-                return confirm;
-            } else {
-                throw new LeoException("UH-OH!!! Invalid task number.");
-            }
-        } else {
+        if (words.length <= 1) {
             throw new LeoException("UH-OH!!! Invalid format. Use unmark <task number>");
+        }
+
+        int index = Integer.parseInt(words[1]) - 1;
+        if (index >= 0 && index < todoList.size()) {
+            Task task = todoList.get(index);
+            task.setDone(false);
+            saveTasksToFile(todoList);
+            String confirm = "Marked as not done: " + task;
+            System.out.println(confirm);
+            return confirm;
+        } else {
+            throw new LeoException("UH-OH!!! Invalid task number.");
         }
     }
 
@@ -166,20 +126,19 @@ public class TaskManager {
      * @throws LeoException If the task number is invalid.
      */
     public String markTask(String... words) throws LeoException {
-        if (words.length > 1) {
-            int index = Integer.parseInt(words[1]) - 1;
-            if (index >= 0 && index < todoList.size()) {
-                Task task = todoList.get(index);
-                task.setDone(true);
-                saveTasksToFile(todoList);
-                String confirm =  "Marked as done: " + task;
-                System.out.println(confirm);
-                return confirm;
-            } else {
-                throw new LeoException("UH-OH!!! Invalid task number.");
-            }
-        } else {
+        if (words.length <= 1) {
             throw new LeoException("UH-OH!!! Invalid format. Use mark <task number>");
+        }
+        int index = Integer.parseInt(words[1]) - 1;
+        if (index >= 0 && index < todoList.size()) {
+            Task task = todoList.get(index);
+            task.setDone(true);
+            saveTasksToFile(todoList);
+            String confirm =  "Marked as done: " + task;
+            System.out.println(confirm);
+            return confirm;
+        } else {
+            throw new LeoException("UH-OH!!! Invalid task number.");
         }
     }
 
@@ -190,22 +149,21 @@ public class TaskManager {
      * @throws LeoException If the task number is invalid.
      */
     public String deleteTask(String... words) throws LeoException {
-        if (words.length > 1) {
-            int index = Integer.parseInt(words[1]) - 1;
-            if (index >= 0 && index < todoList.size()) {
-                Task taskRemoved = todoList.remove(index);
-                saveTasksToFile(todoList);
-                String confirmMsg = "Removed Task: " + taskRemoved;
-                String resultMsg = "Now you have " + todoList.size() + " tasks in the list.";
+        if (words.length <= 1) {
+            throw new LeoException("UH-OH!!! Invalid format. Use delete <task number>");
+        }
+        int index = Integer.parseInt(words[1]) - 1;
+        if (index >= 0 && index < todoList.size()) {
+            Task taskRemoved = todoList.remove(index);
+            saveTasksToFile(todoList);
+            String confirmMsg = "Removed Task: " + taskRemoved;
+            String resultMsg = "Now you have " + todoList.size() + " tasks in the list.";
 
-                System.out.println(confirmMsg);
-                System.out.println(resultMsg);
-                return confirmMsg + "\n" + resultMsg;
-            } else {
-                throw new LeoException("UH-OH!!! Invalid task number.");
-            }
+            System.out.println(confirmMsg);
+            System.out.println(resultMsg);
+            return confirmMsg + "\n" + resultMsg;
         } else {
-            throw new LeoException("UH-OH!!! Invalid format. Use mark <task number>");
+            throw new LeoException("UH-OH!!! Invalid task number.");
         }
     }
 
@@ -254,7 +212,6 @@ public class TaskManager {
             System.out.println(emptyMsg);
             return emptyMsg;
         }
-
         String resultMsg = "Here are the matching tasks in your list:\n" + String.join("\n", foundTasks);
         foundTasks.forEach(System.out::println);
         return resultMsg;
