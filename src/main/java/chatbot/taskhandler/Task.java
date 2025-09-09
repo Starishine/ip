@@ -25,6 +25,10 @@ public class Task {
         isDone = done;
     }
 
+    public boolean getDone() {
+        return this.isDone;
+    }
+
     public String formatData() {
         return (isDone ? "1" : "0") + " | " + name; // Formats the task data for file writing
     }
