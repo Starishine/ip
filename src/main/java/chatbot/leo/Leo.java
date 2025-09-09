@@ -38,10 +38,9 @@ public class Leo {
                 String error = e.getMessage();
                 return error;
             }
-        } else {
-            String goodbyeMsg =  ui.showGoodbye();
-            System.out.println(goodbyeMsg);
         }
+        String goodbyeMsg =  ui.showGoodbye();
+        System.out.println(goodbyeMsg);
         return "null";
     }
 
