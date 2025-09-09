@@ -48,9 +48,14 @@ public class Deadline extends Task {
         this.dueDate = parsedDueDate;
     }
 
+    public LocalDateTime getDueDate() {
+        return this.dueDate;
+    }
+
     public String formatData() {
         return "D | " + super.formatData() + " | " + stringDueDate;
     }
+
 
     @Override
     public String toString() {

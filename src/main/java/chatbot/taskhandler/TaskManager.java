@@ -7,6 +7,7 @@ import chatbot.leo.Leo;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -117,6 +118,34 @@ public class TaskManager {
         } else {
             throw new LeoException("UH-OH!!! Invalid task number.");
         }
+    }
+
+    /**
+     * Sorts deadline tasks due dates in chronological order.
+     */
+    public String sortDeadlineTask() {
+        List<Deadline> deadlineTasks = this.todoList
+                .stream()
+                .filter(task -> task instanceof Deadline) // filter all deadline tasks
+                .map(task -> (Deadline) task)
+                .filter(task -> !task.getDone()) // filter tasks not done yet
+                .sorted((d1,d2) -> d1.getDueDate().compareTo(d2.getDueDate()))
+                .toList();
+
+        if (deadlineTasks.isEmpty()) {
+            String emptyMsg = "YAY no dues yet!";
+            System.out.println(emptyMsg);
+            return emptyMsg;
+        }
+
+        List<String> taskToString = deadlineTasks
+                .stream()
+                .map(task -> (todoList.indexOf(task) + 1) + ". " + task)
+                .toList();
+
+        String resultMsg = "Here are the deadline tasks due soon:\n" + String.join("\n", taskToString);
+        taskToString.forEach(System.out::println);
+        return resultMsg;
     }
 
     /**
