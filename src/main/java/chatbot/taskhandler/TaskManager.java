@@ -8,6 +8,8 @@ import chatbot.leo.Leo;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * Manages a list of tasks, including loading from and saving to a file.
@@ -239,25 +241,23 @@ public class TaskManager {
             throw new LeoException("UH-OH!!! Please provide a keyword to search for.");
         }
         String keyword = String.join(" ", java.util.Arrays.copyOfRange(words, 1, words.length));
-        List<Task> foundTasks = new ArrayList<>();
-        String resultMsg = "Here are the matching tasks in your list: ";
-        for (Task task : todoList) {
-            if (task.getName().toLowerCase().contains(keyword.toLowerCase())) {
-                foundTasks.add(task);
-            }
-        }
+        // using streams
+        List<String> foundTasks = Stream.iterate(0, x -> x + 1)
+                .limit(todoList.size())
+                .map(i -> todoList.get(i))
+                .filter(task -> task.getName().toLowerCase().contains(keyword.toLowerCase()))
+                .map(task -> (todoList.indexOf(task) + 1) + ". " + task)
+                .toList();
+
         if (foundTasks.isEmpty()) {
             String emptyMsg = "No matching tasks found.";
             System.out.println(emptyMsg);
             return emptyMsg;
-        } else  {
-            for (int i = 0; i < foundTasks.size(); i++) {
-                String foundTask = (i + 1) + ". " + foundTasks.get(i);
-                System.out.println(foundTask);
-                resultMsg += "\n" + foundTask;
-            }
-            return resultMsg;
         }
+
+        String resultMsg = "Here are the matching tasks in your list:\n" + String.join("\n", foundTasks);
+        foundTasks.forEach(System.out::println);
+        return resultMsg;
     }
 
 }
