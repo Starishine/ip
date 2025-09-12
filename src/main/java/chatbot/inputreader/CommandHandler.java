@@ -54,6 +54,8 @@ public class CommandHandler {
                 return taskManager.findTasks(words);
             case DUE:
                 return taskManager.sortDeadlineTask();
+            case EDIT:
+                return taskManager.updateTask(input);
             default:
                 throw new LeoException("UH-OH!!! Cannot understand your command. "
                         + "Please use 'todo', 'deadline', 'event', 'mark', 'unmark', 'list', or 'delete'.");

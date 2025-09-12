@@ -11,10 +11,10 @@ import java.time.format.DateTimeFormatter;
  * An Event object contains the task name, start date, and end date.
  */
 public class Event extends Task {
-    private final String stringStartDate;
-    private final String stringEndDate;
-    private final LocalDate startDate;
-    private final LocalDate endDate;
+    private String stringStartDate;
+    private String stringEndDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     /**
      * Constructs an Event object with the specified name, start date, and end date.
@@ -26,16 +26,30 @@ public class Event extends Task {
      */
     public Event(String name, String startDate, String endDate) throws LeoException {
         super(name);
-        this.stringStartDate = startDate;
-        this.stringEndDate = endDate;
+        setStartDate(startDate);
+        setEndDate(endDate);
 
+    }
+
+
+    public void setStartDate(String startDate) throws LeoException {
         try {
             this.startDate = LocalDate.parse(startDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            this.endDate = LocalDate.parse(endDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         } catch (DateTimeException e) {
-            throw new LeoException("UH-OH!!! The startDate/endDate format is invalid. "
+            throw new LeoException("UH-OH!!! The startDate format is invalid. "
                     + "Please use YYYY-MM-DD format.");
         }
+        this.stringStartDate = startDate;
+    }
+
+    public void setEndDate(String endDate) throws LeoException {
+        try {
+            this.endDate = LocalDate.parse(endDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        } catch (DateTimeException e) {
+            throw new LeoException("UH-OH!!! The endDate format is invalid. "
+                    + "Please use YYYY-MM-DD format.");
+        }
+        this.stringEndDate = endDate;
     }
 
     public String formatData() {

@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 /**
@@ -194,6 +196,55 @@ public class TaskManager {
         } else {
             throw new LeoException("UH-OH!!! Invalid task number.");
         }
+    }
+
+    /**
+     * Updates a task from the todo list based on the input command.
+     *
+     * @param input The input command.
+     * @throws LeoException If the task number is invalid.
+     */
+    public String updateTask(String input) throws LeoException {
+        String[] words = input.split(" ");
+        if (words.length <= 1) {
+            throw new LeoException("UH-OH!!! Invalid format. Use edit <task number>");
+        }
+        int index = Integer.parseInt(words[1]) - 1;
+
+        if (index < 0 || index > todoList.size()) {
+            throw new LeoException("UH-OH!!! Invalid task number.");
+        }
+        Task task = todoList.get(index);
+        // (\\w+) matches / followed by letters/numbers and captures flag name
+        // \\s+ at least one space after flag
+        // ([^/]+) -> everything after the space until the next / ,captures value of flag
+        Pattern pattern = Pattern.compile("/(\\w+)\\s+([^/]+)");
+        Matcher matcher = pattern.matcher(input);
+
+        while (matcher.find()) {
+            String field = matcher.group(1); // flag name
+            String value = matcher.group(2).trim(); // value
+            if (task instanceof ToDo && field.equals("name")) {
+                task.setName(value);
+            } else if (task instanceof Deadline) {
+                Deadline deadlineTask = (Deadline) task;
+                switch (field) {
+                    case "name" -> deadlineTask.setName(value);
+                    case "by" -> deadlineTask.setBy(value);
+                }
+            } else if (task instanceof Event) {
+                Event eventTask  = (Event) task;
+                switch (field) {
+                    case "name" -> eventTask.setName(value);
+                    case "from" -> eventTask.setStartDate(value);
+                    case "to" -> eventTask.setEndDate(value);
+                }
+            }
+        }
+        saveTasksToFile(todoList);
+        String updateMsg = "Task updated: " + task.toString();
+        System.out.println(updateMsg);
+        return updateMsg;
     }
 
     /**
