@@ -55,4 +55,5 @@ jobs:
 
       - name: Build with Gradle (Windows)
         if: runner.os == 'Windows'
-        run: gradlew.bat build --no-daemon --console=plain
+        working-directory: ${{ github.workspace }}
+        run: ./gradlew build --no-daemon --console=plain
