@@ -14,6 +14,7 @@ public enum CommandType {
     EVENT,
     FIND,
     DUE,
+    EDIT,
     UNKNOWN;
 
     /**
@@ -34,6 +35,7 @@ public enum CommandType {
             case "event" -> EVENT;
             case "find" -> FIND;
             case "due" -> DUE;
+            case "edit" -> EDIT;
             default -> UNKNOWN;
         };
     }

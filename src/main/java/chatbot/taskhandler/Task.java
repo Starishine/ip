@@ -4,7 +4,7 @@ package chatbot.taskhandler;
  * Represents a general task with a name and completion status.
  */
 public class Task {
-    private final String name;
+    private String name;
     private boolean isDone;
 
     /**
@@ -19,6 +19,10 @@ public class Task {
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setDone(boolean done) {
