@@ -1,15 +1,15 @@
 package chatbot.taskhandler;
 
-import chatbot.exceptions.LeoException;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
+import chatbot.exceptions.LeoException;
 
 /**
  * Test class for TaskManager.
@@ -67,9 +67,9 @@ public class TaskManagerTest {
         File tempFile = File.createTempFile("tempfile", ".txt");
         tempFile.deleteOnExit();
         String filePath = tempFile.getAbsolutePath();
-        String taskData = "T | 0 | Read a book\n" +
-                "D | 1 | Finish project | 2025-12-31 1800\n" +
-                "E | 0 | Meeting | 2025-08-30 | 2025-08-31";
+        String taskData = "T | 0 | Read a book\n"
+                + "D | 1 | Finish project | 2025-12-31 1800\n"
+                + "E | 0 | Meeting | 2025-08-30 | 2025-08-31";
 
         FileWriter writer = new FileWriter(filePath);
         writer.write(taskData);

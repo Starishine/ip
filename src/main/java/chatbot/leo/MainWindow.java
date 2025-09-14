@@ -29,6 +29,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/userImage.png"));
     private Image leoImage = new Image(this.getClass().getResourceAsStream("/images/leoImage.png"));
 
+    /**
+     * Initialises the chatbot with welcome message
+     */
     @FXML
     public void initialize() {
         userInput.clear();

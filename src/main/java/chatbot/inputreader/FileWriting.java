@@ -1,15 +1,13 @@
 package chatbot.inputreader;
 
-import chatbot.taskhandler.Task;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
+
+import chatbot.taskhandler.Task;
 
 /**
  * Utility class for reading from and writing to files.

@@ -1,10 +1,5 @@
 package chatbot.taskhandler;
 
-import chatbot.exceptions.LeoException;
-import chatbot.inputreader.CommandHandler;
-import chatbot.inputreader.FileWriting;
-import chatbot.leo.Leo;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -12,6 +7,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
+
+import chatbot.exceptions.LeoException;
+import chatbot.inputreader.CommandHandler;
+import chatbot.inputreader.FileWriting;
 
 /**
  * Manages a list of tasks, including loading from and saving to a file.
@@ -131,7 +130,7 @@ public class TaskManager {
                 .filter(task -> task instanceof Deadline) // filter all deadline tasks
                 .map(task -> (Deadline) task)
                 .filter(task -> !task.getDone()) // filter tasks not done yet
-                .sorted((d1,d2) -> d1.getDueDate().compareTo(d2.getDueDate()))
+                .sorted(Comparator.comparing(Deadline::getDueDate))
                 .toList();
 
         if (deadlineTasks.isEmpty()) {

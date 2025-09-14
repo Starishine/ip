@@ -37,8 +37,8 @@ public class TaskParser {
         case EVENT:
             return parseEvent(input);
         default:
-            throw new LeoException("UH-OH!!! Cannot create task: Unknown command. " +
-                    "Please use 'todo', 'deadline','event'.");
+            throw new LeoException("UH-OH!!! Cannot create task: Unknown command. "
+                    + "Please use 'todo', 'deadline','event'.");
         }
     }
 

@@ -1,10 +1,10 @@
 package chatbot.taskhandler;
 
-import chatbot.exceptions.LeoException;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import chatbot.exceptions.LeoException;
 
 /**
  * Represents an event task with a start date and an end date.
