@@ -56,7 +56,10 @@ public class MainWindow extends AnchorPane {
 
         if (input.equalsIgnoreCase("bye")) {
             String exitMsg = "Bye ! Hope to see you soon!";
-            dialogContainer.getChildren().add(DialogBox.getLeoDialog(exitMsg, leoImage));
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getLeoDialog(exitMsg, leoImage)
+            );
             PauseTransition pause = new PauseTransition(Duration.seconds(1));
             pause.setOnFinished(event -> {
                 Platform.exit();
