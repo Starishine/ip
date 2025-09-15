@@ -22,7 +22,7 @@ public class FileWriting {
      * @throws IOException If an I/O error occurs.
      */
     public static void writeToFile(String filePath, List<Task> tasks) throws IOException {
-        assert filePath != null && !filePath.isBlank(): "Filepath must not be null";
+        assert filePath != null && !filePath.isBlank() : "Filepath must not be null";
         assert tasks != null : "tasks must not be null";
         FileWriter writer = new FileWriter(filePath);
         for (Task task : tasks) {

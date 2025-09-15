@@ -18,5 +18,4 @@ public class LeoException extends Exception {
     public String getMessage() {
         return super.getMessage();
     }
-
 }

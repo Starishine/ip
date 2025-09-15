@@ -164,7 +164,7 @@ public class TaskManager {
             Task task = todoList.get(index);
             task.setDone(true);
             saveTasksToFile(todoList);
-            String confirm =  "Marked as done: " + task;
+            String confirm = "Marked as done: " + task;
             System.out.println(confirm);
             return confirm;
         } else {
@@ -228,15 +228,29 @@ public class TaskManager {
             } else if (task instanceof Deadline) {
                 Deadline deadlineTask = (Deadline) task;
                 switch (field) {
-                    case "name" -> deadlineTask.setName(value);
-                    case "by" -> deadlineTask.setBy(value);
+                case "name":
+                    deadlineTask.setName(value);
+                    break;
+                case "by":
+                    deadlineTask.setBy(value);
+                    break;
+                default:
+                    // no default needed
                 }
             } else if (task instanceof Event) {
-                Event eventTask  = (Event) task;
+                Event eventTask = (Event) task;
                 switch (field) {
-                    case "name" -> eventTask.setName(value);
-                    case "from" -> eventTask.setStartDate(value);
-                    case "to" -> eventTask.setEndDate(value);
+                case "name":
+                    eventTask.setName(value);
+                    break;
+                case "from":
+                    eventTask.setStartDate(value);
+                    break;
+                case "to":
+                    eventTask.setEndDate(value);
+                    break;
+                default:
+                    // no default needed
                 }
             }
         }
@@ -250,7 +264,7 @@ public class TaskManager {
      * Prints the current todo list.
      */
     public String printList() {
-        String startLine  = "Here is your todo list:";
+        String startLine = "Here is your todo list:";
         String result = startLine;
         System.out.println(result);
         assert todoList != null : "todoList must not be null";

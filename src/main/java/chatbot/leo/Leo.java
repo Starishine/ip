@@ -39,7 +39,7 @@ public class Leo {
                 return error;
             }
         }
-        String goodbyeMsg =  ui.showGoodbye();
+        String goodbyeMsg = ui.showGoodbye();
         System.out.println(goodbyeMsg);
         return "null";
     }

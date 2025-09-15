@@ -3,7 +3,6 @@ package chatbot.inputreader;
 import java.util.List;
 
 import chatbot.exceptions.LeoException;
-
 import chatbot.taskhandler.Deadline;
 import chatbot.taskhandler.Event;
 import chatbot.taskhandler.Task;

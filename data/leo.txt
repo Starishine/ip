@@ -1,5 +1,6 @@
-D | 0 | es2660 slides | 2025-09-11
+D | 0 | es2660 presentation | 2025-09-15
 D | 0 | cs2100 assignment | 2025-09-13
 E | 1 | submission | 2025-09-08 | 2025-09-09
 E | 1 | project | 2025-09-09 | 2025-09-10
-D | 0 | my bday | 2025-09-13
+D | 1 | my bday | 2025-09-13
+T | 0 | yoo
