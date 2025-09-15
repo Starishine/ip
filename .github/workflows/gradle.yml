@@ -37,8 +37,3 @@ jobs:
 
       - name: Build and check with Gradle
         run: ./gradlew check --no-daemon --quiet
-
-      - name: Build with Gradle (Windows)
-        if : runner.os == 'Windows'
-        working-directory: ${{ github.workspace }}
-        run: ./gradlew build --no-daemon--console=plain
