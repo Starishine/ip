@@ -56,8 +56,8 @@ public class TaskManagerTest {
         try {
             manager.createTask("deadline Submit assignment /by Sunday");
         } catch (LeoException e) {
-            assertEquals("UH-OH!!! The dueDate format is invalid. "
-                    + "Please use YYYY-MM-DD or YYYY-MM-DD HHMM format.", e.getMessage());
+            assertEquals("UH-OH!!! The dueDate format is invalid. " +
+                    "Please use YYYY-MM-DD or YYYY-MM-DD HHMM format. Invalid input: 'Sunday'", e.getMessage());
         }
 
     }
@@ -80,7 +80,7 @@ public class TaskManagerTest {
         assertEquals(3, manager.getTodoList().size());
         assertEquals("[T] [ ] Read a book", manager.getTodoList().get(0).toString());
         assertEquals("[D] [X] Finish project (by: Dec 31 2025 18:00)", manager.getTodoList().get(1).toString());
-        assertEquals("[E] [ ] Meeting (from: Aug 30 2025 to: Aug 31 2025)", manager.getTodoList().get(2).toString());
+        assertEquals("[E] [ ] Meeting (from: Aug 30 2025 00:00 to: Aug 31 2025 00:00)", manager.getTodoList().get(2).toString());
     }
 
     @Test
@@ -142,6 +142,137 @@ public class TaskManagerTest {
         String[] deleteCommand = {"delete", "1"};
         manager.deleteTask(deleteCommand);
         assertEquals(0, manager.getTodoList().size());
+    }
+
+    @Test
+    public void testSortDeadlineTask() throws LeoException, IOException {
+        File tempFile = File.createTempFile("tempfile", ".txt");
+        tempFile.deleteOnExit();
+
+        TaskManager manager = new TaskManager(tempFile.getAbsolutePath());
+        Task deadline1 = new Deadline("Submit assignment", "2023-10-01 1800");
+        Task deadline2 = new Deadline("Project meeting", "2023-09-15 1400");
+        Task todo = new ToDo("Read a book");
+        manager.addTask(deadline1);
+        manager.addTask(deadline2);
+        manager.addTask(todo);
+
+        String sortedDeadlines = manager.sortDeadlineTask();
+        String expectedOutput = "Here are the deadline tasks due soon:\n"
+                + "2. [D] [ ] Project meeting (by: Sep 15 2023 14:00)\n"
+                + "1. [D] [ ] Submit assignment (by: Oct 1 2023 18:00)";
+        assertEquals(expectedOutput, sortedDeadlines);
+    }
+
+    @Test
+    public void testSortDeadlineTaskNoDeadlineTasks() throws LeoException, IOException {
+        File tempFile = File.createTempFile("tempfile", ".txt");
+        tempFile.deleteOnExit();
+
+        TaskManager manager = new TaskManager(tempFile.getAbsolutePath());
+        Task todo = new ToDo("Read a book");
+        manager.addTask(todo);
+
+        String result = manager.sortDeadlineTask();
+        assertEquals("YAY no dues yet!", result);
+    }
+
+    @Test
+    public void testUpdateTask() throws LeoException, IOException {
+        File tempFile = File.createTempFile("tempfile", ".txt");
+        tempFile.deleteOnExit();
+
+        TaskManager manager = new TaskManager(tempFile.getAbsolutePath());
+        Task deadline = new Deadline("Submit assignment", "2025-10-01 1200");
+        manager.addTask(deadline);
+
+        String input = "edit 1 /name Submit project /by 2025-11-01 1200";
+        String result = manager.updateTask(input);
+
+        assertTrue(result.contains("Submit project"));
+        assertTrue(result.contains("by: Nov 1 2025 12:00"));
+    }
+
+    @Test
+    public void testUpdateTaskInvalidTask() throws IOException {
+        File tempFile = File.createTempFile("tempfile", ".txt");
+        tempFile.deleteOnExit();
+
+        TaskManager manager = new TaskManager(tempFile.getAbsolutePath());
+        Task todo = new ToDo("Read a book");
+        manager.addTask(todo);
+
+        String input = "edit 1 /name Submit project";
+        try {
+            manager.updateTask(input);
+        } catch (LeoException e) {
+            assertEquals("UH-OH!!! Invalid task number.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testFindTasks() throws LeoException, IOException {
+        File tempFile = File.createTempFile("tempfile", ".txt");
+        tempFile.deleteOnExit();
+
+        TaskManager manager = new TaskManager(tempFile.getAbsolutePath());
+        Task todo1 = new ToDo("Read a book");
+        Task todo2 = new ToDo("Write a book");
+        Task deadline = new Deadline("Submit assignment", "2023-10-01 1800");
+        manager.addTask(todo1);
+        manager.addTask(todo2);
+        manager.addTask(deadline);
+
+        String[] findCommand = {"find", "book"};
+        String result = manager.findTasks(findCommand);
+
+        String expectedOutput = "Here are the matching tasks in your list:\n"
+                + "1. [T] [ ] Read a book\n"
+                + "2. [T] [ ] Write a book";
+        assertEquals(expectedOutput, result);
+    }
+
+    @Test
+    public void testFindTasksNoMatch() throws LeoException, IOException {
+        File tempFile = File.createTempFile("tempfile", ".txt");
+        tempFile.deleteOnExit();
+
+        TaskManager manager = new TaskManager(tempFile.getAbsolutePath());
+        Task todo = new ToDo("Read a book");
+        manager.addTask(todo);
+
+        String[] command = {"find", "workshop"};
+        String result = manager.findTasks(command);
+        assertEquals("No matching tasks found.", result);
+    }
+
+    @Test
+    public void testPrintList() throws LeoException, IOException {
+        File tempFile = File.createTempFile("tempfile", ".txt");
+        tempFile.deleteOnExit();
+
+        TaskManager manager = new TaskManager(tempFile.getAbsolutePath());
+        Task todo = new ToDo("Read a book");
+        Task deadline = new Deadline("Submit assignment", "2023-10-01 1800");
+        manager.addTask(todo);
+        manager.addTask(deadline);
+
+        String result = manager.printList();
+        String expectedOutput = "Here are the tasks in your list:\n"
+                + "1. [T] [ ] Read a book\n"
+                + "2. [D] [ ] Submit assignment (by: Oct 1 2023 18:00)";
+        assertEquals(expectedOutput, result);
+    }
+
+    @Test
+    public void testPrintListEmpty() throws LeoException, IOException {
+        File tempFile = File.createTempFile("tempfile", ".txt");
+        tempFile.deleteOnExit();
+
+        TaskManager manager = new TaskManager(tempFile.getAbsolutePath());
+
+        String result = manager.printList();
+        assertEquals("Your task list is empty.", result);
     }
 
 }
