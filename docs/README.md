@@ -1,28 +1,40 @@
 # Leo User Guide
 
-Leo is a friendly chatbot that helps you manage your tasks efficiently. Whether you need to track simple to-dos, set deadlines, or organize events, Leo has got you covered!
+<div align="center">
 
-![Leo chatbot interface](/docs/Ui.png "Leo chatbot interface")
+![Leo Chatbot](./Ui.png)
 
-## Quick Start
+**Leo is a friendly chatbot that helps you manage your tasks efficiently.**  
+*Whether you need to track simple to-dos, set deadlines, or organize events, Leo has got you covered!*
 
-1. Launch the Leo application
-2. Start typing commands in the input field
-3. Press Enter or click the Send button to interact with Leo
-4. Type `bye` to exit the application
+</div>
 
-## Features
+---
 
-### Adding Tasks
+## 🚀 Quick Start
 
-Leo supports three types of tasks: ToDo, Deadline, and Event.
+1. **Launch** the Leo application
+2. **Type** commands in the input field
+3. **Press Enter** or click the Send button to interact with Leo
+4. **Type** `bye` to exit the application
+
+---
+
+## ✨ Features
+
+### 📝 Adding Tasks
+
+Leo supports three types of tasks: **ToDo**, **Deadline**, and **Event**.
 
 #### Adding a ToDo task
-Adds a simple task without any date/time.
+> Adds a simple task without any date/time.
 
 **Format:** `todo DESCRIPTION`
 
-**Example:** `todo read book`
+**Example:**
+```
+todo read book
+```
 
 **Expected outcome:**
 ```
@@ -30,29 +42,39 @@ Got it! I've added this task: [T][ ] read book
 Now you have 1 tasks in the list.
 ```
 
+---
+
 #### Adding a Deadline task
-Adds a task with a due date.
+> Adds a task with a due date.
 
 **Format:** `deadline DESCRIPTION /by DATE [TIME]`
 
-**Date formats supported:**
+**📅 Date formats supported:**
 - `YYYY-MM-DD` (time defaults to 00:00)
 - `YYYY-MM-DD HHMM` (24-hour format)
 
-**Example:** `deadline submit assignment /by 2025-09-16 2359`
+**Example:**
+```
+deadline submit assignment /by 2025-09-16 2359
+```
 
 **Expected outcome:**
 ```
-Got it! I've added this task: [D][ ] submit assignment (by: Sept 16 2025 23:59)
+Got it! I've added this task: [D][ ] submit assignment (by: Sep 16 2025 23:59)
 Now you have 2 tasks in the list.
 ```
 
+---
+
 #### Adding an Event task
-Adds a task with both start and end dates.
+> Adds a task with both start and end dates.
 
 **Format:** `event DESCRIPTION /from START_DATE [TIME] /to END_DATE [TIME]`
 
-**Example:** `event team meeting /from 2025-10-10 1400 /to 2024-10-10 1600`
+**Example:**
+```
+event team meeting /from 2025-10-10 1400 /to 2025-10-10 1600
+```
 
 **Expected outcome:**
 ```
@@ -60,10 +82,12 @@ Got it! I've added this task: [E][ ] team meeting (from: Oct 10 2025 14:00 to: O
 Now you have 3 tasks in the list.
 ```
 
-### Managing Tasks
+---
+
+### 🔧 Managing Tasks
 
 #### Listing all tasks
-Shows all tasks in your list with their completion status.
+> Shows all tasks in your list with their completion status.
 
 **Format:** `list`
 
@@ -71,13 +95,11 @@ Shows all tasks in your list with their completion status.
 ```
 Here are the tasks in your list:
 1. [T][ ] read book
-2. [D][ ] submit assignment (by: Sept 16 2025 23:59)
+2. [D][ ] submit assignment (by: Sep 16 2025 23:59)
 3. [E][ ] team meeting (from: Oct 10 2025 14:00 to: Oct 10 2025 16:00)
 ```
 
-#### Marking tasks as done
-Marks a task as completed.
-
+#### ✅ Marking tasks as done
 **Format:** `mark TASK_NUMBER`
 
 **Example:** `mark 1`
@@ -87,9 +109,7 @@ Marks a task as completed.
 Marked as done: [T][X] read book
 ```
 
-#### Unmarking tasks
-Marks a task as not completed.
-
+#### ❌ Unmarking tasks
 **Format:** `unmark TASK_NUMBER`
 
 **Example:** `unmark 1`
@@ -99,23 +119,23 @@ Marks a task as not completed.
 Marked as not done: [T][ ] read book
 ```
 
-#### Deleting tasks
-Permanently removes a task from your list.
-
+#### 🗑️ Deleting tasks
 **Format:** `delete TASK_NUMBER`
 
 **Example:** `delete 3`
 
 **Expected outcome:**
 ```
-Removed Task: [D][ ] submit assignment (by: Sept 16 2025 23:59)
+Removed Task: [E][ ] team meeting (from: Oct 10 2025 14:00 to: Oct 10 2025 16:00)
 Now you have 2 tasks in the list.
 ```
 
-### Finding Tasks
+---
+
+### 🔍 Finding Tasks
 
 #### Searching for tasks
-Finds tasks that contain the specified keyword (case-insensitive).
+> Finds tasks that contain the specified keyword (case-insensitive).
 
 **Format:** `find KEYWORD`
 
@@ -127,47 +147,57 @@ Here are the matching tasks in your list:
 3. [E][ ] team meeting (from: Oct 10 2025 14:00 to: Oct 10 2025 16:00)
 ```
 
-### Organizing Tasks
+---
+
+### 📊 Organizing Tasks
 
 #### Viewing upcoming deadlines
-Shows all incomplete deadline tasks sorted by due date.
+> Shows all incomplete deadline tasks sorted by due date.
 
 **Format:** `due`
 
 **Expected outcome:**
 ```
 Here are the deadline tasks due soon:
-2. [D][ ] submit assignment (by: Sept 16 2025 23:59)
+2. [D][ ] submit assignment (by: Sep 16 2025 23:59)
 ```
 
-### Editing Tasks
+---
+
+### ✏️ Editing Tasks
 
 #### Updating task details
-Modify existing tasks by changing their name, dates, or other attributes.
+> Modify existing tasks by changing their name, dates, or other attributes.
 
 **Format:** `edit TASK_NUMBER /FIELD VALUE [/FIELD VALUE ...]`
 
-**Available fields:**
+**📋 Available fields:**
 - `/name` - Change task description
 - `/by` - Change deadline (for Deadline tasks)
 - `/from` - Change start date (for Event tasks)
 - `/to` - Change end date (for Event tasks)
 
 **Examples:**
-- `edit 1 /name finish reading book`
-- `edit 2 /by 2024-12-20 1800`
-- `edit 3 /name project meeting /from 2024-12-11 1000`
+```
+edit 1 /name finish reading book
+edit 2 /by 2025-12-20 1800
+edit 3 /name project meeting /from 2025-12-11 1000
+```
 
 **Expected outcome:**
 ```
 Task updated: [T][ ] finish reading book
 ```
 
-## Data Storage
+---
+
+## 💾 Data Storage
 
 Leo automatically saves your tasks to a file (`data/leo.txt`) every time you make changes. Your tasks will be restored when you restart the application.
 
-## Error Handling
+---
+
+## ⚠️ Error Handling
 
 Leo will show helpful error messages when:
 - Commands are in the wrong format
@@ -176,11 +206,15 @@ Leo will show helpful error messages when:
 - Date formats are incorrect
 
 **Example error messages:**
-- `UH-OH!!! Invalid task number.`
-- `UH-OH!!! The dueDate format is invalid. Please use YYYY-MM-DD or YYYY-MM-DD HHMM format.`
-- `UH-OH!!! Cannot create task: Description cannot be empty for 'todo'.`
+```
+UH-OH!!! Invalid task number.
+UH-OH!!! The dueDate format is invalid. Please use YYYY-MM-DD or YYYY-MM-DD HHMM format.
+UH-OH!!! Cannot create task: Description cannot be empty for 'todo'.
+```
 
-## Command Summary
+---
+
+## 📋 Command Summary
 
 | Command | Format | Purpose |
 |---------|--------|---------|
@@ -196,11 +230,23 @@ Leo will show helpful error messages when:
 | `edit` | `edit TASK_NUMBER /FIELD VALUE` | Update task details |
 | `bye` | `bye` | Exit the application |
 
-## Tips
+---
 
-1. **Task numbers** start from 1 and correspond to the order shown in `list`
-2. **Date formats** must be exact: `YYYY-MM-DD` or `YYYY-MM-DD HHMM`
-3. **Time format** uses 24-hour notation (e.g., 1400 for 2:00 PM)
-4. **Keywords** in `find` are case-insensitive and match partial words
-5. **Multiple fields** can be edited in a single `edit` command
-6. Leo will automatically save your changes, so you don't lose your tasks!
+## 💡 Tips & Tricks
+
+> **Pro Tips for using Leo effectively:**
+
+1. **📊 Task numbers** start from 1 and correspond to the order shown in `list`
+2. **📅 Date formats** must be exact: `YYYY-MM-DD` or `YYYY-MM-DD HHMM`
+3. **🕐 Time format** uses 24-hour notation (e.g., 1400 for 2:00 PM)
+4. **🔍 Keywords** in `find` are case-insensitive and match partial words
+5. **✏️ Multiple fields** can be edited in a single `edit` command
+6. **💾 Auto-save** Leo automatically saves your changes, so you don't lose your tasks!
+
+---
+
+<div align="center">
+
+*Happy task managing with Leo!* 🎉
+
+</div>
