@@ -1,12 +1,10 @@
 package chatbot.taskhandler;
 
-import java.time.DateTimeException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 import chatbot.exceptions.LeoException;
+import chatbot.parser.DateTimeParser;
 
 /**
  * Represents a task with a deadline.
@@ -30,21 +28,7 @@ public class Deadline extends Task {
     }
 
     public void setBy(String dueDate) throws LeoException {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        try {
-            this.dueDate = LocalDateTime.parse(dueDate, dateTimeFormatter);
-        } catch (DateTimeException e) {
-            // if fails, try to parse as LocalDate only and set time to 00:00
-            try {
-                this.dueDate = LocalDateTime.of(LocalDate.parse(dueDate, dateFormatter),
-                        java.time.LocalTime.MIDNIGHT);
-            } catch (DateTimeParseException ex) {
-                throw new LeoException("UH-OH!!! The dueDate format is invalid. "
-                        + "Please use YYYY-MM-DD or YYYY-MM-DD HHMM format.");
-            }
-        }
+        this.dueDate = DateTimeParser.parseDateTime(dueDate, "dueDate");
         this.stringDueDate = dueDate;
     }
 

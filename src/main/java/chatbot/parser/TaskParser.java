@@ -1,6 +1,10 @@
-package chatbot.taskhandler;
+package chatbot.parser;
 
 import chatbot.exceptions.LeoException;
+import chatbot.taskhandler.Deadline;
+import chatbot.taskhandler.Event;
+import chatbot.taskhandler.Task;
+import chatbot.taskhandler.ToDo;
 
 /**
  * Parses user input strings into specific {@link Task} objects.

@@ -1,10 +1,10 @@
 package chatbot.taskhandler;
 
-import java.time.DateTimeException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import chatbot.exceptions.LeoException;
+import chatbot.parser.DateTimeParser;
 
 /**
  * Represents an event task with a start date and an end date.
@@ -13,8 +13,8 @@ import chatbot.exceptions.LeoException;
 public class Event extends Task {
     private String stringStartDate;
     private String stringEndDate;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
     /**
      * Constructs an Event object with the specified name, start date, and end date.
@@ -33,22 +33,12 @@ public class Event extends Task {
 
 
     public void setStartDate(String startDate) throws LeoException {
-        try {
-            this.startDate = LocalDate.parse(startDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        } catch (DateTimeException e) {
-            throw new LeoException("UH-OH!!! The startDate format is invalid. "
-                    + "Please use YYYY-MM-DD format.");
-        }
+        this.startDate = DateTimeParser.parseDateTime(startDate, "startDate");
         this.stringStartDate = startDate;
     }
 
     public void setEndDate(String endDate) throws LeoException {
-        try {
-            this.endDate = LocalDate.parse(endDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        } catch (DateTimeException e) {
-            throw new LeoException("UH-OH!!! The endDate format is invalid. "
-                    + "Please use YYYY-MM-DD format.");
-        }
+        this.endDate = DateTimeParser.parseDateTime(endDate, "endDate");
         this.stringEndDate = endDate;
     }
 
@@ -59,7 +49,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E] " + super.toString() + " (from: "
-                + startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " to: "
-                + endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+                + startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + " to: "
+                + endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + ")";
     }
 }
