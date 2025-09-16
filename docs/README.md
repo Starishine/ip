@@ -2,6 +2,8 @@
 
 Leo is a friendly chatbot that helps you manage your tasks efficiently. Whether you need to track simple to-dos, set deadlines, or organize events, Leo has got you covered!
 
+![Leo chatbot interface](/docs/Ui.png "Leo chatbot interface")
+
 ## Quick Start
 
 1. Launch the Leo application
