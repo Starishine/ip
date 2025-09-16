@@ -26,7 +26,7 @@ public class EventTest {
     @Test
     public void testEventCreationInvalidStartDate() {
         String name = "Team Meeting";
-        String invalidStartDate = "2025-13-20";  // Invalid month
+        String invalidStartDate = "2025-13-20"; // Invalid month
 
         assertThrows(LeoException.class, () -> {
             new Event(name, invalidStartDate, "2025-09-21");
@@ -37,7 +37,7 @@ public class EventTest {
     @Test
     public void testEventCreationInvalidEndDate() {
         String name = "Team Meeting";
-        String invalidEndDate = "2025-09-32";  // Invalid day
+        String invalidEndDate = "2025-09-32"; // Invalid day
 
         assertThrows(LeoException.class, () -> {
             new Event(name, "2025-09-20", invalidEndDate);
@@ -48,7 +48,7 @@ public class EventTest {
     @Test
     public void testEventCreationReversedDates() throws LeoException {
         String name = "Team Meeting";
-        String startDate = "2025-09-21";  // Start after the end
+        String startDate = "2025-09-21"; // Start after the end
         String endDate = "2025-09-20";
 
         Event event = new Event(name, startDate, endDate);

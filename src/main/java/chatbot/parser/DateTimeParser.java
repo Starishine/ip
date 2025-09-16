@@ -8,6 +8,10 @@ import java.time.format.DateTimeParseException;
 
 import chatbot.exceptions.LeoException;
 
+/**
+ * Utility class for parsing date and time strings into LocalDateTime objects.
+ * Supports formats "yyyy-MM-dd HHmm" and "yyyy-MM-dd".
+ */
 public class DateTimeParser {
     private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HHmm";
     private static final String DATE_FORMAT = "yyyy-MM-dd";
@@ -15,6 +19,16 @@ public class DateTimeParser {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
+    /**
+     * Parses a date string into a LocalDateTime object.
+     * Accepts formats "yyyy-MM-dd HHmm" or "yyyy-MM-dd".
+     * If only date is provided, time defaults to 00:00.
+     *
+     * @param dateString The input date string.
+     * @param fieldName  The name of the field for error messages.
+     * @return A LocalDateTime object representing the parsed date and time.
+     * @throws LeoException If the input format is invalid or empty.
+     */
     public static LocalDateTime parseDateTime(String dateString, String fieldName) throws LeoException {
         // Guard: empty/null input
         if (dateString == null || dateString.trim().isEmpty()) {

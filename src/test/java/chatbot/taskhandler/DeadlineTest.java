@@ -37,7 +37,7 @@ public class DeadlineTest {
     @Test
     public void testDeadlineCreationInvalidMonth() {
         String name = "Submit Report";
-        String invalidDueDate = "2025-13-01 1200";  // Invalid month
+        String invalidDueDate = "2025-13-01 1200"; // Invalid month
 
         assertThrows(LeoException.class, () -> {
             new Deadline(name, invalidDueDate);

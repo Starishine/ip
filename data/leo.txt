@@ -1,7 +1,5 @@
-D | 1 | ip | 2025-09-19
-E | 0 | project | 2025-09-16 1800 | 2025-09-20
-T | 0 | sleep
-E | 0 | my bday | 2025-09-13 | 2025-09-13 2359
-D | 0 | testdate | 2025-09-16   1230
-D | 0 | invalid date | 2025-09-31 1200
-D | 0 | submit | 2025-09-30 2400
+T | 1 | sleep tonight
+D | 1 | submit ip | 2025-09-16 2359
+E | 0 | project meeting | 2025-10-26 | 2025-10-30
+D | 1 | do 2100 assignment | 2025-09-29
+D | 0 | finish work | 2025-09-25 1800

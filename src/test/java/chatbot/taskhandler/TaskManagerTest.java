@@ -56,8 +56,8 @@ public class TaskManagerTest {
         try {
             manager.createTask("deadline Submit assignment /by Sunday");
         } catch (LeoException e) {
-            assertEquals("UH-OH!!! The dueDate format is invalid. " +
-                    "Please use YYYY-MM-DD or YYYY-MM-DD HHMM format. Invalid input: 'Sunday'", e.getMessage());
+            assertEquals("UH-OH!!! The dueDate format is invalid. "
+                    + "Please use YYYY-MM-DD or YYYY-MM-DD HHMM format. Invalid input: 'Sunday'", e.getMessage());
         }
 
     }
@@ -80,7 +80,8 @@ public class TaskManagerTest {
         assertEquals(3, manager.getTodoList().size());
         assertEquals("[T] [ ] Read a book", manager.getTodoList().get(0).toString());
         assertEquals("[D] [X] Finish project (by: Dec 31 2025 18:00)", manager.getTodoList().get(1).toString());
-        assertEquals("[E] [ ] Meeting (from: Aug 30 2025 00:00 to: Aug 31 2025 00:00)", manager.getTodoList().get(2).toString());
+        assertEquals("[E] [ ] Meeting (from: Aug 30 2025 00:00 to: Aug 31 2025 00:00)",
+                manager.getTodoList().get(2).toString());
     }
 
     @Test
