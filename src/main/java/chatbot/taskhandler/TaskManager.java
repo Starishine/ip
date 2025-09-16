@@ -265,12 +265,12 @@ public class TaskManager {
      * Prints the current todo list.
      */
     public String printList() {
-        String startLine = "Here is your todo list:";
+        String startLine = "Here are the tasks in your list:";
         String result = startLine;
         System.out.println(result);
-        assert todoList != null : "todoList must not be null";
+        assert todoList != null : "taskList must not be null";
         if (todoList.isEmpty()) {
-            String emptyMsg = "Your todo list is empty.";
+            String emptyMsg = "Your task list is empty.";
             System.out.println(emptyMsg);
             return emptyMsg;
         } else {
