@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Leo Chatbot](https://Starishine.github.io/ip/Ui.png)
+![Leo Chatbot](Ui.png)
 
 **Leo is a friendly chatbot that helps you manage your tasks efficiently.**  
 *Whether you need to track simple to-dos, set deadlines, or organize events, Leo has got you covered!*
