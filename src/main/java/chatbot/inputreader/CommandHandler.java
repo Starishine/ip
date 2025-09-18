@@ -58,7 +58,8 @@ public class CommandHandler {
                 return taskManager.updateTask(input);
             default:
                 throw new LeoException("UH-OH!!! Cannot understand your command. "
-                        + "Please use 'todo', 'deadline', 'event', 'mark', 'unmark', 'list', or 'delete'.");
+                        + "Pls use 'todo', 'deadline', 'event', 'mark', 'unmark', "
+                        + "'list', 'edit', 'due',  or 'delete'.");
             }
         } catch (LeoException e) {
             String errorMessage = e.getMessage();

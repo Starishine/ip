@@ -26,11 +26,26 @@ public class Event extends Task {
      */
     public Event(String name, String startDate, String endDate) throws LeoException {
         super(name);
+        checkDateInconsistency(startDate, endDate);
         setStartDate(startDate);
         setEndDate(endDate);
 
     }
 
+    /**
+     * Checks if the start date is after the end date.
+     *
+     * @param startDate The start date string.
+     * @param endDate   The end date string.
+     * @throws LeoException If the start date is after the end date.
+     */
+    public void checkDateInconsistency(String startDate, String endDate) throws LeoException {
+        LocalDateTime start = DateTimeParser.parseDateTime(startDate, "startDate");
+        LocalDateTime end = DateTimeParser.parseDateTime(endDate, "endDate");
+        if (start.isAfter(end)) {
+            throw new LeoException("UH-OH!!! The start date cannot be after the end date.");
+        }
+    }
 
     public void setStartDate(String startDate) throws LeoException {
         this.startDate = DateTimeParser.parseDateTime(startDate, "startDate");

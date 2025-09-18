@@ -108,18 +108,23 @@ public class TaskManager {
         if (words.length <= 1) {
             throw new LeoException("UH-OH!!! Invalid format. Use unmark <task number>");
         }
-
-        int index = Integer.parseInt(words[1]) - 1;
-        if (index >= 0 && index < todoList.size()) {
-            Task task = todoList.get(index);
-            task.setDone(false);
-            saveTasksToFile(todoList);
-            String confirm = "Marked as not done: " + task;
-            System.out.println(confirm);
-            return confirm;
-        } else {
+        int index;
+        try {
+            index = Integer.parseInt(words[1]) - 1; // Convert to 0-based index
+        } catch (NumberFormatException e) {
+            throw new LeoException("UH-OH!!! Task number must be an integer. Use unmark <integer>");
+        }
+        if (index < 0 || index >= todoList.size()) {
             throw new LeoException("UH-OH!!! Invalid task number.");
         }
+
+        Task task = todoList.get(index);
+        task.setDone(false);
+        saveTasksToFile(todoList);
+        String confirm = "Marked as not done: " + task;
+        System.out.println(confirm);
+        return confirm;
+
     }
 
     /**
@@ -160,17 +165,22 @@ public class TaskManager {
         if (words.length <= 1) {
             throw new LeoException("UH-OH!!! Invalid format. Use mark <task number>");
         }
-        int index = Integer.parseInt(words[1]) - 1;
-        if (index >= 0 && index < todoList.size()) {
-            Task task = todoList.get(index);
-            task.setDone(true);
-            saveTasksToFile(todoList);
-            String confirm = "Marked as done: " + task;
-            System.out.println(confirm);
-            return confirm;
-        } else {
+        int index;
+        try {
+            index = Integer.parseInt(words[1]) - 1; // Convert to 0-based index
+        } catch (NumberFormatException e) {
+            throw new LeoException("UH-OH!!! Task number must be an integer. Use mark <integer>");
+        }
+        if (index < 0 || index >= todoList.size()) {
             throw new LeoException("UH-OH!!! Invalid task number.");
         }
+
+        Task task = todoList.get(index);
+        task.setDone(true);
+        saveTasksToFile(todoList);
+        String confirm = "Marked as done: " + task;
+        System.out.println(confirm);
+        return confirm;
     }
 
     /**
@@ -183,19 +193,23 @@ public class TaskManager {
         if (words.length <= 1) {
             throw new LeoException("UH-OH!!! Invalid format. Use delete <task number>");
         }
-        int index = Integer.parseInt(words[1]) - 1;
-        if (index >= 0 && index < todoList.size()) {
-            Task taskRemoved = todoList.remove(index);
-            saveTasksToFile(todoList);
-            String confirmMsg = "Removed Task: " + taskRemoved;
-            String resultMsg = "Now you have " + todoList.size() + " tasks in the list.";
-
-            System.out.println(confirmMsg);
-            System.out.println(resultMsg);
-            return confirmMsg + "\n" + resultMsg;
-        } else {
+        int index;
+        try {
+            index = Integer.parseInt(words[1]) - 1; // Convert to 0-based index
+        } catch (NumberFormatException e) {
+            throw new LeoException("UH-OH!!! Task number must be an integer. Use delete <integer>");
+        }
+        if (index < 0 || index >= todoList.size()) {
             throw new LeoException("UH-OH!!! Invalid task number.");
         }
+        Task taskRemoved = todoList.remove(index);
+        saveTasksToFile(todoList);
+        String confirmMsg = "Removed Task: " + taskRemoved;
+        String resultMsg = "Now you have " + todoList.size() + " tasks in the list.";
+
+        System.out.println(confirmMsg);
+        System.out.println(resultMsg);
+        return confirmMsg + "\n" + resultMsg;
     }
 
     /**
@@ -209,9 +223,14 @@ public class TaskManager {
         if (words.length <= 1) {
             throw new LeoException("UH-OH!!! Invalid format. Use edit <task number>");
         }
-        int index = Integer.parseInt(words[1]) - 1;
+        int index;
+        try {
+            index = Integer.parseInt(words[1]) - 1; // Convert to 0-based index
+        } catch (NumberFormatException e) {
+            throw new LeoException("UH-OH!!! Task number must be an integer. Use edit <integer>");
+        }
 
-        if (index < 0 || index > todoList.size()) {
+        if (index < 0 || index >= todoList.size()) {
             throw new LeoException("UH-OH!!! Invalid task number.");
         }
         Task task = todoList.get(index);
@@ -220,6 +239,10 @@ public class TaskManager {
         // ([^/]+) -> everything after the space until the next / ,captures value of flag
         Pattern pattern = Pattern.compile("/(\\w+)\\s+([^/]+)");
         Matcher matcher = pattern.matcher(input);
+
+        if (!matcher.find()) {
+            throw new LeoException("UH-OH!!! No fields to update. Use /name, /by, /from, or /to to specify fields.");
+        }
 
         while (matcher.find()) {
             String field = matcher.group(1); // flag name
@@ -262,6 +285,8 @@ public class TaskManager {
     public void updateToDoField(ToDo task, String field, String value) throws LeoException {
         if (field.equals("name")) {
             task.setName(value);
+        } else {
+            throw new LeoException("UH-OH!!! Invalid field for ToDo. Only '/name' can be updated.");
         }
     }
 
@@ -282,7 +307,7 @@ public class TaskManager {
             task.setBy(value);
             break;
         default:
-            // no default needed
+            throw new LeoException("UH-OH!!! Invalid field for Deadline. Use '/name' or '/by' to edit.");
         }
     }
 
@@ -306,7 +331,7 @@ public class TaskManager {
             task.setEndDate(value);
             break;
         default:
-            // no default needed
+            throw new LeoException("UH-OH!!! Invalid field for Event. Use '/name', '/from', or '/to' to edit.");
         }
     }
 
