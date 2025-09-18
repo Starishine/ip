@@ -189,13 +189,51 @@ public class TaskManagerTest {
 
         String input = "edit 1 /name Submit project /by 2025-11-01 1200";
         String result = manager.updateTask(input);
+        System.out.println(result);
 
         assertTrue(result.contains("Submit project"));
         assertTrue(result.contains("by: Nov 1 2025 12:00"));
     }
 
     @Test
-    public void testUpdateTaskInvalidTask() throws IOException {
+    public void testUpdateTaskNonIntegerIndex() throws IOException {
+        File tempFile = File.createTempFile("tempfile", ".txt");
+        tempFile.deleteOnExit();
+
+        TaskManager manager = new TaskManager(tempFile.getAbsolutePath());
+        Task todo = new ToDo("Read a book");
+        manager.addTask(todo);
+
+        // Test non-integer task number
+        String input = "edit abc /name New task";
+        try {
+            manager.updateTask(input);
+        } catch (LeoException e) {
+            assertEquals("UH-OH!!! Task number must be an integer. Use edit <integer>", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testUpdateTaskNoFields() throws LeoException, IOException {
+        File tempFile = File.createTempFile("tempfile", ".txt");
+        tempFile.deleteOnExit();
+
+        TaskManager manager = new TaskManager(tempFile.getAbsolutePath());
+        Task todo = new ToDo("Read a book");
+        manager.addTask(todo);
+
+        // Test no fields to update
+        String input = "edit 1 some random text";
+        try {
+            manager.updateTask(input);
+        } catch (LeoException e) {
+            assertEquals("UH-OH!!! No fields to update. "
+                    + "Use /name, /by, /from, or /to to specify fields.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testUpdateTaskInvalidTaskNumber() throws IOException {
         File tempFile = File.createTempFile("tempfile", ".txt");
         tempFile.deleteOnExit();
 

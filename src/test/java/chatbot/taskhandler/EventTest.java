@@ -51,10 +51,9 @@ public class EventTest {
         String startDate = "2025-09-21"; // Start after the end
         String endDate = "2025-09-20";
 
-        Event event = new Event(name, startDate, endDate);
-
-        assertEquals("[E] [ ] Team Meeting (from: Sep 21 2025 00:00 to: Sep 20 2025 00:00)", event.toString());
-        assertEquals("E | 0 | Team Meeting | 2025-09-21 | 2025-09-20", event.formatData());
+        assertThrows(LeoException.class, () -> {
+            new Event(name, startDate, endDate);
+        });
     }
 }
 

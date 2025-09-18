@@ -243,6 +243,7 @@ public class TaskManager {
         if (!matcher.find()) {
             throw new LeoException("UH-OH!!! No fields to update. Use /name, /by, /from, or /to to specify fields.");
         }
+        matcher.reset(); // Reset matcher to start from the beginning
 
         while (matcher.find()) {
             String field = matcher.group(1); // flag name
