@@ -224,42 +224,92 @@ public class TaskManager {
         while (matcher.find()) {
             String field = matcher.group(1); // flag name
             String value = matcher.group(2).trim(); // value
-            if (task instanceof ToDo && field.equals("name")) {
-                task.setName(value);
-            } else if (task instanceof Deadline) {
-                Deadline deadlineTask = (Deadline) task;
-                switch (field) {
-                case "name":
-                    deadlineTask.setName(value);
-                    break;
-                case "by":
-                    deadlineTask.setBy(value);
-                    break;
-                default:
-                    // no default needed
-                }
-            } else if (task instanceof Event) {
-                Event eventTask = (Event) task;
-                switch (field) {
-                case "name":
-                    eventTask.setName(value);
-                    break;
-                case "from":
-                    eventTask.setStartDate(value);
-                    break;
-                case "to":
-                    eventTask.setEndDate(value);
-                    break;
-                default:
-                    // no default needed
-                }
-            }
+            updateTaskField(task, field, value);
         }
+
         saveTasksToFile(todoList);
         String updateMsg = "Task updated: " + task.toString();
         System.out.println(updateMsg);
         return updateMsg;
     }
+
+    /**
+     * Updates the specified field of a task with the given value.
+     *
+     * @param task  The task to be updated.
+     * @param field The field to be updated (e.g., "name", "by", "from", "to").
+     * @param value The new value for the specified field.
+     * @throws LeoException If the field is invalid or the value format is incorrect.
+     */
+    public void updateTaskField(Task task, String field, String value) throws LeoException {
+        if (task instanceof ToDo) {
+            updateToDoField((ToDo) task, field, value);
+        } else if (task instanceof Deadline) {
+            updateDeadlineField((Deadline) task, field, value);
+        } else if (task instanceof Event) {
+            updateEventField((Event) task, field, value);
+        }
+    }
+
+    /**
+     * Updates the specified field of a ToDo task with the given value.
+     *
+     * @param task  The ToDo task to be updated.
+     * @param field The field to be updated.
+     * @param value The new value for the specified field.
+     * @throws LeoException If the field is invalid.
+     */
+    public void updateToDoField(ToDo task, String field, String value) throws LeoException {
+        if (field.equals("name")) {
+            task.setName(value);
+        }
+    }
+
+    /**
+     * Updates the specified field of a Deadline task with the given value.
+     *
+     * @param task  The Deadline task to be updated.
+     * @param field The field to be updated.
+     * @param value The new value for the specified field.
+     * @throws LeoException If the field is invalid or the value format is incorrect.
+     */
+    public void updateDeadlineField(Deadline task, String field, String value) throws LeoException {
+        switch (field) {
+        case "name":
+            task.setName(value);
+            break;
+        case "by":
+            task.setBy(value);
+            break;
+        default:
+            // no default needed
+        }
+    }
+
+    /**
+     * Updates the specified field of an Event task with the given value.
+     *
+     * @param task  The Event task to be updated.
+     * @param field The field to be updated.
+     * @param value The new value for the specified field.
+     * @throws LeoException If the field is invalid or the value format is incorrect.
+     */
+    public void updateEventField(Event task, String field, String value) throws LeoException {
+        switch (field) {
+        case "name":
+            task.setName(value);
+            break;
+        case "from":
+            task.setStartDate(value);
+            break;
+        case "to":
+            task.setEndDate(value);
+            break;
+        default:
+            // no default needed
+        }
+    }
+
 
     /**
      * Prints the current todo list.
@@ -273,14 +323,13 @@ public class TaskManager {
             String emptyMsg = "Your task list is empty.";
             System.out.println(emptyMsg);
             return emptyMsg;
-        } else {
-            for (int i = 0; i < todoList.size(); i++) {
-                String todoTask = (i + 1) + ". " + todoList.get(i);
-                System.out.println(todoTask);
-                result += "\n" + todoTask;
-            }
-            return result;
         }
+        for (int i = 0; i < todoList.size(); i++) {
+            String todoTask = (i + 1) + ". " + todoList.get(i);
+            System.out.println(todoTask);
+            result += "\n" + todoTask;
+        }
+        return result;
     }
 
     /**

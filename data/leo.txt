@@ -1,5 +1,4 @@
-T | 1 | sleep tonight
 D | 1 | submit ip | 2025-09-16 2359
-E | 0 | project meeting | 2025-10-26 | 2025-10-30
+E | 0 | project meeting | 2025-10-26 | 2025-10-29 1800
 D | 1 | do 2100 assignment | 2025-09-29
-D | 0 | finish work | 2025-09-25 1800
+D | 1 | finish work | 2025-09-25 1800

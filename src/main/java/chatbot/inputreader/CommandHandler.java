@@ -13,7 +13,8 @@ import chatbot.taskhandler.ToDo;
  * Handles user commands and interacts with the TaskManager.
  */
 public class CommandHandler {
-    private final TaskManager taskManager;
+    public static final String TASK_DONE_MARKER = "1";
+    private TaskManager taskManager;
 
     /**
      * Constructs a CommandHandler with the specified TaskManager.
@@ -48,8 +49,7 @@ public class CommandHandler {
             case TODO:
             case DEADLINE:
             case EVENT:
-                Task task = taskManager.createTask(input);
-                return taskManager.addTask(task);
+                return handleTaskCreation(input);
             case FIND:
                 return taskManager.findTasks(words);
             case DUE:
@@ -68,6 +68,18 @@ public class CommandHandler {
     }
 
     /**
+     * Handles the creation and addition of a new task based on user input.
+     *
+     * @param input The user input command for creating a task.
+     * @return A confirmation message after adding the task.
+     * @throws LeoException If there is an error creating or adding the task.
+     */
+    private String handleTaskCreation(String input) throws LeoException {
+        Task task = taskManager.createTask(input);
+        return taskManager.addTask(task);
+    }
+
+    /**
      * Handles commands read from a file and adds them to the TaskManager.
      *
      * @param lines The list of command lines read from the file.
@@ -81,7 +93,7 @@ public class CommandHandler {
             String[] parts = line.split(" \\| ");
             assert parts.length >= 3 : "Line must have at least 3 parts - taskType, isDone, description";
             String taskType = parts[0];
-            boolean isDone = parts[1].equals("1");
+            boolean isDone = parts[1].equals(TASK_DONE_MARKER);
             String description = parts[2];
             Task task;
 

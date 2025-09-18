@@ -1,14 +1,9 @@
 # Leo User Guide
 
-<div align="center">
-
-![Leo Chatbot](https://Starishine.github.io/ip/Ui.png)
-
+![Leo Interface](/docs/Ui.png)
 
 **Leo is a friendly chatbot that helps you manage your tasks efficiently.**  
 *Whether you need to track simple to-dos, set deadlines, or organize events, Leo has got you covered!*
-
-</div>
 
 ---
 
@@ -245,9 +240,4 @@ UH-OH!!! Cannot create task: Description cannot be empty for 'todo'.
 6. **💾 Auto-save** Leo automatically saves your changes, so you don't lose your tasks!
 
 ---
-
-<div align="center">
-
 *Happy task managing with Leo!* 🎉
-
-</div>
